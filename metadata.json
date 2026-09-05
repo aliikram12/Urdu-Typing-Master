@@ -1,0 +1,6 @@
+{
+  "name": "URDU MASTER",
+  "description": "Professional Urdu Phonetic Typing Tutor with interactive virtual keyboard, animated hand guidance, progressive lessons, real-time WPM/accuracy analytics, and typing games.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

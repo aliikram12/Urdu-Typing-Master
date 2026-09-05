@@ -1,0 +1,173 @@
+import React from 'react';
+import { UserProfile, AppSettings } from '../../types';
+import { audioEngine } from '../../core/audioEngine';
+import {
+  LayoutDashboard,
+  BookOpen,
+  Timer,
+  Gamepad2,
+  Sparkles,
+  Activity,
+  Trophy,
+  Keyboard,
+  Settings,
+  Volume2,
+  VolumeX,
+  Flame
+} from 'lucide-react';
+
+export type NavigationTab =
+  | 'dashboard'
+  | 'lessons'
+  | 'test'
+  | 'games'
+  | 'learn'
+  | 'analytics'
+  | 'achievements';
+
+interface NavbarProps {
+  currentTab: NavigationTab;
+  onSelectTab: (tab: NavigationTab) => void;
+  user: UserProfile;
+  settings: AppSettings;
+  onOpenSettings: () => void;
+  onOpenReference: () => void;
+  onToggleSound: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  currentTab,
+  onSelectTab,
+  user,
+  settings,
+  onOpenSettings,
+  onOpenReference,
+  onToggleSound,
+}) => {
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'lessons', label: 'Lessons', icon: BookOpen },
+    { id: 'test', label: 'Typing Test', icon: Timer },
+    { id: 'games', label: 'Games', icon: Gamepad2 },
+    { id: 'learn', label: 'Learn Keys', icon: Sparkles },
+    { id: 'analytics', label: 'Analytics', icon: Activity },
+    { id: 'achievements', label: 'Badges', icon: Trophy },
+  ] as const;
+
+  return (
+    <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 select-none">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+        {/* Brand Logo */}
+        <div
+          onClick={() => onSelectTab('dashboard')}
+          className="flex items-center gap-3 cursor-pointer group"
+        >
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-600/30 group-hover:scale-105 transition">
+            <span className="font-urdu font-black text-2xl leading-none -translate-y-0.5">
+              ٹ
+            </span>
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5 font-black text-white text-base tracking-tight">
+              <span>UrduTyper</span>
+              <span className="font-urdu text-amber-400 font-bold text-lg leading-none">
+                اردو
+              </span>
+            </div>
+            <div className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">
+              Phonetic Typing Tutor
+            </div>
+          </div>
+        </div>
+
+        {/* Primary Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
+          {navItems.map(item => {
+            const Icon = item.icon;
+            const isActive = currentTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => onSelectTab(item.id as NavigationTab)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                  isActive
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Right Side Utilities */}
+        <div className="flex items-center gap-2">
+          {/* Daily Streak Pill */}
+          <div
+            title={`${user.streakDays || 1} Day Streak`}
+            className="hidden sm:flex items-center gap-1.5 bg-slate-900 border border-slate-800/90 px-3 py-1.5 rounded-xl text-xs font-bold text-amber-400"
+          >
+            <Flame className="w-4 h-4 fill-amber-400 animate-pulse" />
+            <span>{user.streakDays || 1}d</span>
+          </div>
+
+          {/* Sound Toggle */}
+          <button
+            onClick={onToggleSound}
+            title={settings.soundTheme === 'mute' ? 'Unmute Audio' : 'Mute Audio'}
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+          >
+            {settings.soundTheme === 'mute' ? (
+              <VolumeX className="w-4 h-4 text-rose-400" />
+            ) : (
+              <Volume2 className="w-4 h-4 text-emerald-400" />
+            )}
+          </button>
+
+          {/* Keyboard Map Reference Button */}
+          <button
+            onClick={onOpenReference}
+            title="Urdu Keyboard Layout Cheat Sheet"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
+          >
+            <Keyboard className="w-4 h-4 text-blue-400" />
+            <span className="hidden md:inline">Keymap</span>
+          </button>
+
+          {/* Settings Trigger */}
+          <button
+            onClick={onOpenSettings}
+            title="Settings & Preferences"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+          >
+            <Settings className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Sub-Navigation Bar */}
+      <div className="lg:hidden flex items-center overflow-x-auto px-4 py-2 border-t border-slate-900 gap-1 scrollbar-none">
+        {navItems.map(item => {
+          const Icon = item.icon;
+          const isActive = currentTab === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => onSelectTab(item.id as NavigationTab)}
+              className={`flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition shrink-0 ${
+                isActive
+                  ? 'bg-blue-600 text-white'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Icon className="w-3.5 h-3.5" />
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </header>
+  );
+};
