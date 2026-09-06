@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserProfile, AppSettings } from '../../types';
 import { audioEngine } from '../../core/audioEngine';
+import { usePWAInstall } from '../../hooks/usePWAInstall';
 import {
   LayoutDashboard,
   BookOpen,
@@ -17,7 +18,8 @@ import {
   LogOut,
   Mail,
   Award,
-  ShieldCheck
+  CheckCircle2,
+  HelpCircle
 } from 'lucide-react';
 
 export type NavigationTab =
@@ -50,6 +52,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleSound,
   onLogout,
 }) => {
+  const { isInstallable, isInstalled, promptInstall } = usePWAInstall();
+  const [showInstallTip, setShowInstallTip] = useState(false);
+
+  const handleInstallClick = async () => {
+    if (isInstallable) {
+      await promptInstall();
+    } else {
+      setShowInstallTip(true);
+      setTimeout(() => setShowInstallTip(false), 5000);
+    }
+  };
+
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'lessons', label: 'Lessons', icon: BookOpen },
@@ -145,10 +159,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Sub-Navbar: Centered Profile & Logout Strip */}
+      {/* Sub-Navbar: Centered Profile, Install App, & Logout Strip */}
       {user.name && (
-        <div className="border-t border-slate-800/70 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 py-2.5 px-4 shadow-md">
-          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs">
+        <div className="border-t border-slate-800/70 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 py-2.5 px-4 shadow-md relative">
+          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs">
             {/* User Profile Info Card */}
             <div className="flex items-center gap-2.5 bg-slate-950/80 border border-slate-800 px-3 py-1.5 rounded-2xl shadow-inner">
               <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-sm shadow-md shadow-blue-500/20 border border-blue-400/30 shrink-0">
@@ -169,7 +183,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {user.email && (
               <div className="hidden md:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-2xl text-slate-400 font-mono text-[11px]">
                 <Mail className="w-3.5 h-3.5 text-blue-400" />
-                <span className="truncate max-w-[200px]">{user.email}</span>
+                <span className="truncate max-w-[180px]">{user.email}</span>
               </div>
             )}
 
@@ -185,12 +199,60 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>{user.streakDays || 0}d Streak</span>
             </div>
 
+            {/* PWA Install Desktop App Button (Native Monitor-Down-Arrow Icon) */}
+            <div className="relative">
+              {isInstalled ? (
+                <div
+                  title="UrduTyper is installed as a standalone app"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Installed</span>
+                </div>
+              ) : (
+                <button
+                  onClick={handleInstallClick}
+                  title="Install UrduTyper as Desktop/Mobile Application"
+                  className="group flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-blue-600/20 via-cyan-600/20 to-blue-600/10 hover:from-blue-600 hover:to-cyan-500 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-400 font-bold text-xs shadow-md hover:shadow-cyan-500/25 transition-all duration-200 cursor-pointer active:scale-95"
+                >
+                  {/* Native PWA Desktop Install Icon (Monitor with Downward Arrow) */}
+                  <svg
+                    className="w-4 h-4 text-cyan-400 group-hover:text-white transition-colors"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                    <path d="M12 7v5m-2.5-2.5 2.5 2.5 2.5-2.5" />
+                  </svg>
+                  <span>Install App</span>
+                </button>
+              )}
+
+              {/* Tooltip if browser hasn't prompted or user clicked */}
+              {showInstallTip && (
+                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-slate-900 border border-blue-500/50 rounded-2xl text-[11px] text-slate-200 shadow-2xl z-50 animate-in fade-in zoom-in duration-200">
+                  <div className="font-bold text-blue-400 flex items-center gap-1.5 mb-1">
+                    <span>Install via Browser:</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    Click the <strong className="text-white">Install icon (🖥️↓)</strong> right inside your browser's address bar at the top right, or select <span className="text-cyan-300">Install UrduTyper</span> from the browser menu.
+                  </p>
+                </div>
+              )}
+            </div>
+
             {/* Centered Sleek Logout Button */}
             {onLogout && (
               <button
                 onClick={onLogout}
                 title="Logout from your account"
-                className="group flex items-center gap-2 px-4 py-1.5 rounded-2xl bg-gradient-to-r from-rose-600/20 to-red-600/10 hover:from-rose-600 hover:to-red-600 text-rose-300 hover:text-white border border-rose-500/30 hover:border-rose-500 font-bold text-xs shadow-md hover:shadow-rose-600/30 transition-all duration-200 cursor-pointer active:scale-95"
+                className="group flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-rose-600/20 to-red-600/10 hover:from-rose-600 hover:to-red-600 text-rose-300 hover:text-white border border-rose-500/30 hover:border-rose-500 font-bold text-xs shadow-md hover:shadow-rose-600/30 transition-all duration-200 cursor-pointer active:scale-95"
               >
                 <LogOut className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
                 <span>Logout</span>
