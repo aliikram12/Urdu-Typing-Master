@@ -7,6 +7,7 @@ import {
   Achievement,
   AppSettings
 } from '../types';
+import { API_URL } from './api';
 
 const STORAGE_KEYS = {
   CURRENT_USER_ID: 'urdu_master_current_user_id',
@@ -572,7 +573,7 @@ class StorageManager {
     };
 
     try {
-      await fetch('http://localhost:5000/api/progress/profile', {
+      await fetch(`${API_URL}/progress/profile`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -581,7 +582,7 @@ class StorageManager {
         body: JSON.stringify(fullProfile),
       });
     } catch (e) {
-      console.error('Failed to sync to cloud in real-time', e);
+      console.warn('Failed to sync to cloud in real-time (network issue):', e);
     }
   }
 
@@ -591,12 +592,17 @@ class StorageManager {
     if (!token) return null;
     try {
       // 1. Fetch current authenticated identity
-      const meRes = await fetch('http://localhost:5000/api/auth/me', {
+      const meRes = await fetch(`${API_URL}/auth/me`, {
         headers: { 'x-auth-token': token },
       });
-      if (!meRes.ok) {
+      if (meRes.status === 401) {
+        // Token is invalid or expired, clear session
         this.clearSession();
         return null;
+      }
+      if (!meRes.ok) {
+        // Server error or temporary issue, preserve local cached user
+        return this.getCurrentUser();
       }
       const meData = await meRes.json();
       const userId = meData.id || meData.profileData?.id;
@@ -604,7 +610,7 @@ class StorageManager {
       const userEmail = meData.email;
 
       // 2. Fetch progress & settings data
-      const res = await fetch('http://localhost:5000/api/progress', {
+      const res = await fetch(`${API_URL}/progress`, {
         headers: { 'x-auth-token': token },
       });
 
@@ -639,8 +645,8 @@ class StorageManager {
 
       return cleanUser;
     } catch(e) {
-      console.error('Failed to pull from cloud', e);
-      return null;
+      console.warn('Failed to pull from cloud (using cached offline user):', e);
+      return this.getCurrentUser();
     }
   }
 
