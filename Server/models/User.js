@@ -26,7 +26,12 @@ const UserSchema = new mongoose.Schema({
       totalTimeMs: 0,
       lessonsCompleted: [],
       recentWpmHistory: [],
-      joinedAt: new Date().toISOString()
+      joinedAt: new Date().toISOString(),
+      lessonProgress: {},
+      sessions: [],
+      keyStats: {},
+      gameScores: [],
+      achievements: []
     }
   },
   settingsData: {
