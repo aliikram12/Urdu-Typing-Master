@@ -41,10 +41,10 @@ const BUBBLE_WORDS = [
 ];
 
 const BUBBLE_COLORS = [
-  'from-blue-500/30 to-cyan-500/40 border-cyan-400',
-  'from-purple-500/30 to-pink-500/40 border-pink-400',
-  'from-emerald-500/30 to-teal-500/40 border-emerald-400',
-  'from-amber-500/30 to-orange-500/40 border-amber-400',
+  'from-[#2563EB]/40 to-[#38BDF8]/40 border-[#38BDF8] shadow-[0_0_20px_rgba(56,189,248,0.35)]',
+  'from-[#FACC15]/30 to-[#FACC15]/20 border-[#FACC15] shadow-[0_0_20px_rgba(250,204,21,0.35)]',
+  'from-[#2563EB]/50 to-[#1D4ED8]/60 border-[#60A5FA] shadow-[0_0_20px_rgba(37,99,235,0.35)]',
+  'from-[#38BDF8]/30 to-[#2563EB]/30 border-[#38BDF8] shadow-[0_0_20px_rgba(56,189,248,0.4)]',
 ];
 
 export const UrduBubbles: React.FC<UrduBubblesProps> = ({
@@ -220,49 +220,49 @@ export const UrduBubbles: React.FC<UrduBubblesProps> = ({
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-4 select-none">
+    <div className="max-w-5xl mx-auto px-4 py-6 select-none">
       {/* Top Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="neu-card rounded-2xl p-4 mb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToGames}
-            className="p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition"
+            className="neu-btn-secondary p-2.5 rounded-xl text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-xl font-black text-white flex items-center gap-2">
+            <h1 className="text-xl font-black text-[#F8FAFC] flex items-center gap-2">
               <span>Urdu Bubbles</span>
-              <span className="font-urdu text-base text-cyan-400">(اردو کے بلبلے)</span>
+              <span className="font-urdu text-base text-[#38BDF8]">(اردو کے بلبلے)</span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#94A3B8]">
               Pop floating bubbles by typing the phonetic Urdu words!
             </p>
           </div>
         </div>
 
         {/* Live HUD */}
-        <div className="flex items-center gap-4">
-          <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl flex items-center gap-2">
-            <Timer className="w-4 h-4 text-cyan-400" />
-            <span className="text-sm font-black text-white">{timeLeft}s</span>
+        <div className="flex items-center gap-3">
+          <div className="neu-badge-cyan px-3 py-1.5 rounded-xl flex items-center gap-2">
+            <Timer className="w-4 h-4 text-[#38BDF8]" />
+            <span className="text-sm font-black text-[#38BDF8]">{timeLeft}s</span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl flex items-center gap-2">
-            <Flame className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold text-amber-300">{combo}x</span>
+          <div className="neu-badge-yellow px-3 py-1.5 rounded-xl flex items-center gap-2">
+            <Flame className="w-4 h-4 text-[#FACC15]" />
+            <span className="text-xs font-black text-[#FACC15]">{combo}x</span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-xl">
-            <span className="text-[11px] text-slate-400 mr-2">Score:</span>
-            <span className="text-lg font-black text-white">{score}</span>
+          <div className="neu-inset px-4 py-1.5 rounded-xl flex items-center gap-2">
+            <span className="text-[11px] text-[#64748B] font-bold uppercase">Score</span>
+            <span className="text-lg font-black text-[#F8FAFC]">{score}</span>
           </div>
         </div>
       </div>
 
       {/* Floating Bubble Stage */}
-      <div className="relative w-full h-[460px] my-4 bg-slate-950/90 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(#1e293b22_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="relative w-full h-[470px] my-4 neu-inset rounded-3xl overflow-hidden shadow-2xl bg-[#080D18]">
+        <div className="absolute inset-0 bg-[radial-gradient(#16233A55_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
         {bubbles.map(b => (
           <motion.div
@@ -271,27 +271,27 @@ export const UrduBubbles: React.FC<UrduBubblesProps> = ({
               left: `${b.x}%`,
               top: `${b.y}%`,
             }}
-            className={`absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-gradient-to-br ${b.color} backdrop-blur shadow-xl flex flex-col items-center justify-center cursor-default pointer-events-none`}
+            className={`absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-gradient-to-br ${b.color} backdrop-blur-md flex flex-col items-center justify-center cursor-default pointer-events-none transition-transform`}
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           >
-            <span className="font-urdu text-xl font-bold text-white drop-shadow">
+            <span className="font-urdu text-xl font-bold text-[#F8FAFC] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               {b.urdu}
             </span>
-            <span className="text-[10px] font-mono text-slate-300/80">
+            <span className="text-[10px] font-mono text-[#F8FAFC]/90 font-bold drop-shadow">
               {b.roman}
             </span>
           </motion.div>
         ))}
 
         {/* Input Bar */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-slate-700/80 px-6 py-2 rounded-2xl shadow-2xl flex items-center gap-3">
-          <span className="text-xs text-slate-400 font-medium">Popper:</span>
-          <div className="font-urdu text-xl font-bold text-cyan-300 min-w-[60px] text-center">
-            {typedUrdu || <span className="text-slate-600 text-sm">type here...</span>}
+        <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 neu-card-raised px-7 py-2.5 rounded-2xl flex items-center gap-4 border border-[#38BDF8]/40">
+          <span className="text-xs text-[#64748B] font-bold uppercase tracking-wider">Popper:</span>
+          <div className="font-urdu text-2xl font-bold text-[#38BDF8] min-w-[70px] text-center">
+            {typedUrdu || <span className="text-[#64748B] text-sm font-sans">Type here...</span>}
           </div>
           {inputBuffer && (
-            <span className="font-mono text-xs text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
+            <span className="font-mono text-xs text-[#FACC15] bg-[#0B1120] border border-slate-700/60 px-2.5 py-1 rounded-lg neu-inset">
               {inputBuffer}
             </span>
           )}
@@ -301,46 +301,46 @@ export const UrduBubbles: React.FC<UrduBubblesProps> = ({
       {/* Game Over Modal */}
       <AnimatePresence>
         {isGameOver && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center"
+              className="neu-card-raised w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center border border-slate-700"
             >
-              <div className="w-16 h-16 bg-cyan-500/10 border border-cyan-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 text-cyan-400 shadow-lg">
-                <CircleDot className="w-8 h-8 text-cyan-400" />
+              <div className="w-16 h-16 bg-[#38BDF8]/10 border border-[#38BDF8]/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-[#38BDF8] shadow-lg">
+                <CircleDot className="w-8 h-8 text-[#38BDF8]" />
               </div>
 
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
+              <span className="neu-badge-cyan text-xs font-bold uppercase tracking-wider px-3 py-1">
                 Time Expired
               </span>
-              <h2 className="text-2xl font-black text-white mt-1">Bubble Master!</h2>
+              <h2 className="text-2xl font-black text-[#F8FAFC] mt-2">Bubble Master!</h2>
 
-              <div className="grid grid-cols-2 gap-3 my-4">
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                  <div className="text-[11px] text-slate-400">Total Score</div>
-                  <div className="text-2xl font-black text-white">{score}</div>
+              <div className="grid grid-cols-2 gap-3 my-5">
+                <div className="neu-inset p-3.5 rounded-2xl">
+                  <div className="text-[11px] text-[#64748B] font-bold uppercase">Total Score</div>
+                  <div className="text-2xl font-black text-[#F8FAFC] mt-0.5">{score}</div>
                 </div>
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                  <div className="text-[11px] text-slate-400">Bubbles Popped</div>
-                  <div className="text-2xl font-black text-emerald-400">{poppedCount}</div>
+                <div className="neu-inset p-3.5 rounded-2xl">
+                  <div className="text-[11px] text-[#64748B] font-bold uppercase">Bubbles Popped</div>
+                  <div className="text-2xl font-black text-[#38BDF8] mt-0.5">{poppedCount}</div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2.5">
                 <button
                   onClick={restartGame}
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition cursor-pointer"
+                  className="neu-btn-primary w-full py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>Play Again</span>
                 </button>
                 <button
                   onClick={onBackToGames}
-                  className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition cursor-pointer"
+                  className="neu-btn-secondary w-full py-2.5 rounded-xl text-xs font-bold text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer"
                 >
-                  Change Game
+                  Return to Games Hub
                 </button>
               </div>
             </motion.div>

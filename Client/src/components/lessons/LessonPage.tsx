@@ -184,27 +184,27 @@ export const LessonPage: React.FC<LessonPageProps> = ({
   return (
     <div className="flex flex-col min-h-full max-w-6xl mx-auto px-4 py-3 relative select-none">
       {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToLessons}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition"
+            className="neu-btn-secondary p-2.5 rounded-xl transition cursor-pointer"
             title="Back to Lessons (Esc)"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 text-[#38BDF8]" />
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                 Lesson {lesson.id.toString().padStart(2, '0')} • {lesson.difficulty}
               </span>
-              <span className="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full border border-slate-700">
+              <span className="text-[11px] neu-badge-blue px-2 py-0.5 rounded-full font-semibold">
                 {lesson.category}
               </span>
             </div>
-            <h1 className="text-lg md:text-xl font-bold text-white flex items-center gap-2 mt-0.5">
+            <h1 className="text-lg md:text-xl font-bold text-[#F8FAFC] flex items-center gap-2 mt-0.5">
               <span>{lesson.title}</span>
-              <span className="font-urdu text-lg text-slate-400">({lesson.titleUrdu})</span>
+              <span className="font-urdu text-lg text-[#FACC15]">({lesson.titleUrdu})</span>
             </h1>
           </div>
         </div>
@@ -214,10 +214,10 @@ export const LessonPage: React.FC<LessonPageProps> = ({
           {lesson.tips && (
             <button
               onClick={() => setShowTips(!showTips)}
-              className={`p-2 rounded-xl text-xs flex items-center gap-1.5 border transition ${
+              className={`p-2 rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer ${
                 showTips
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                  : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+                  ? 'neu-badge-yellow shadow-sm font-bold'
+                  : 'neu-btn-secondary text-[#94A3B8]'
               }`}
             >
               <HelpCircle className="w-4 h-4" />
@@ -227,10 +227,10 @@ export const LessonPage: React.FC<LessonPageProps> = ({
 
           <button
             onClick={() => setShowHand(!showHand)}
-            className={`p-2 rounded-xl text-xs flex items-center gap-1.5 border transition ${
+            className={`p-2 rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer ${
               showHand
-                ? 'bg-blue-600/20 text-blue-300 border-blue-500/40'
-                : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+                ? 'neu-btn-primary font-bold shadow-sm'
+                : 'neu-btn-secondary text-[#94A3B8]'
             }`}
             title="Toggle Hand Guide"
           >
@@ -240,10 +240,10 @@ export const LessonPage: React.FC<LessonPageProps> = ({
 
           <button
             onClick={() => setShowKeyboard(!showKeyboard)}
-            className={`p-2 rounded-xl text-xs flex items-center gap-1.5 border transition ${
+            className={`p-2 rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer ${
               showKeyboard
-                ? 'bg-blue-600/20 text-blue-300 border-blue-500/40'
-                : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+                ? 'neu-btn-primary font-bold shadow-sm'
+                : 'neu-btn-secondary text-[#94A3B8]'
             }`}
             title="Toggle Virtual Keyboard"
           >
@@ -253,10 +253,10 @@ export const LessonPage: React.FC<LessonPageProps> = ({
 
           <button
             onClick={togglePause}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition"
+            className="neu-btn-secondary p-2 rounded-xl transition cursor-pointer"
             title={isPaused ? 'Resume (Ctrl+P)' : 'Pause (Ctrl+P)'}
           >
-            {isPaused ? <Play className="w-4 h-4 text-emerald-400" /> : <Pause className="w-4 h-4" />}
+            {isPaused ? <Play className="w-4 h-4 text-emerald-400" /> : <Pause className="w-4 h-4 text-[#38BDF8]" />}
           </button>
 
           <button
@@ -264,10 +264,10 @@ export const LessonPage: React.FC<LessonPageProps> = ({
               setCurrentLineIndex(0);
               reset();
             }}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition"
+            className="neu-btn-secondary p-2 rounded-xl transition cursor-pointer"
             title="Restart Lesson (Ctrl+R)"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-4 h-4 text-[#94A3B8] hover:text-[#F8FAFC]" />
           </button>
         </div>
       </div>
@@ -279,11 +279,11 @@ export const LessonPage: React.FC<LessonPageProps> = ({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="my-2 p-3 bg-amber-950/30 border border-amber-800/40 rounded-xl text-amber-200 text-xs flex items-start gap-2"
+            className="my-2 p-3.5 neu-badge-yellow rounded-2xl text-xs flex items-start gap-2 shadow-sm"
           >
-            <HelpCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <HelpCircle className="w-4 h-4 text-[#FACC15] shrink-0 mt-0.5" />
             <div>
-              <span className="font-semibold">Instructor Tip: </span>
+              <span className="font-bold">Instructor Tip: </span>
               {lesson.tips}
             </div>
           </motion.div>
@@ -292,66 +292,66 @@ export const LessonPage: React.FC<LessonPageProps> = ({
 
       {/* Real-time Performance HUD */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-3">
-        <div className="bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 text-blue-400 rounded-lg">
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2 bg-[#2563EB]/15 text-[#38BDF8] border border-[#2563EB]/30 rounded-xl shadow-sm">
             <Gauge className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Speed</div>
-            <div className="text-xl font-extrabold text-white">
-              {stats.wpm} <span className="text-xs font-normal text-slate-400">WPM</span>
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">Speed</div>
+            <div className="text-xl font-extrabold text-[#F8FAFC]">
+              {stats.wpm} <span className="text-xs font-normal text-[#94A3B8]">WPM</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl flex items-center gap-3">
-          <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg">
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 rounded-xl shadow-sm">
             <Target className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Accuracy</div>
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">Accuracy</div>
             <div className="text-xl font-extrabold text-emerald-400">
               {stats.accuracy}%
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl flex items-center gap-3">
-          <div className="p-2 bg-rose-500/10 text-rose-400 rounded-lg">
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2 bg-rose-500/15 text-rose-400 border border-rose-500/30 rounded-xl shadow-sm">
             <AlertCircle className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Errors</div>
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">Errors</div>
             <div className="text-xl font-extrabold text-rose-400">
               {stats.incorrectKeypresses}
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl flex items-center gap-3">
-          <div className="p-2 bg-purple-500/10 text-purple-400 rounded-lg">
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2 bg-[#FACC15]/15 text-[#FACC15] border border-[#FACC15]/30 rounded-xl shadow-sm">
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Time</div>
-            <div className="text-xl font-extrabold text-purple-300">
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">Time</div>
+            <div className="text-xl font-extrabold text-[#FACC15]">
               {formatTime(stats.elapsedSeconds)}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Target Urdu Typing Display */}
-      <div className="my-2 p-6 md:p-8 bg-slate-900/90 border border-slate-800/90 rounded-2xl shadow-xl flex flex-col items-center justify-center relative min-h-[160px]">
+      {/* Main Target Urdu Typing Display (Deep Sunken Inset Arena) */}
+      <div className="my-2 p-6 md:p-8 neu-inset rounded-3xl flex flex-col items-center justify-center relative min-h-[160px] shadow-[inset_2px_4px_12px_rgba(0,0,0,0.8)]">
         {/* Pause Overlay */}
         {isPaused && (
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-20">
-            <Pause className="w-10 h-10 text-blue-400 animate-bounce mb-2" />
-            <h2 className="text-lg font-bold text-white">Lesson Paused</h2>
-            <p className="text-xs text-slate-400 mt-1">Press Ctrl+P or click resume to continue</p>
+          <div className="absolute inset-0 bg-[#0B1120]/90 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center z-20">
+            <Pause className="w-10 h-10 text-[#38BDF8] animate-bounce mb-2" />
+            <h2 className="text-lg font-bold text-[#F8FAFC]">Lesson Paused</h2>
+            <p className="text-xs text-[#94A3B8] mt-1">Press Ctrl+P or click resume to continue</p>
             <button
               onClick={togglePause}
-              className="mt-3 px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold text-xs transition"
+              className="neu-btn-primary mt-3 px-5 py-2 rounded-xl font-semibold text-xs transition cursor-pointer"
             >
               Resume Practice
             </button>
@@ -359,18 +359,18 @@ export const LessonPage: React.FC<LessonPageProps> = ({
         )}
 
         {/* Line Navigation Indicator */}
-        <div className="w-full flex items-center justify-between text-xs text-slate-400 mb-3 px-1">
-          <span className="font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="w-full flex items-center justify-between text-xs text-[#94A3B8] mb-3 px-1">
+          <span className="font-semibold text-[#64748B] uppercase tracking-wider">
             Line {currentLineIndex + 1} of {lesson.content.length}
           </span>
           {expectedPrompt && (
-            <div className="flex items-center gap-1.5 bg-blue-950/70 border border-blue-800/60 px-3 py-1 rounded-full text-blue-200">
-              <span>Next keystroke:</span>
-              <span className="font-mono font-bold bg-blue-600 text-white px-1.5 py-0.5 rounded text-xs">
+            <div className="flex items-center gap-2 bg-[#111C31] border border-white/[0.08] px-3.5 py-1.5 rounded-full shadow-sm">
+              <span className="text-[#94A3B8]">Next key:</span>
+              <span className="font-mono font-bold bg-[#2563EB] text-white px-2 py-0.5 rounded text-xs shadow-sm">
                 {expectedPrompt.toUpperCase()}
               </span>
               {currentTargetChar && (
-                <span className="font-urdu font-bold text-amber-300 text-sm">
+                <span className="font-urdu font-bold text-[#FACC15] text-base drop-shadow-[0_1px_4px_rgba(250,204,21,0.4)]">
                   ({currentTargetChar})
                 </span>
               )}
@@ -384,16 +384,16 @@ export const LessonPage: React.FC<LessonPageProps> = ({
           className="w-full font-urdu text-3xl md:text-5xl leading-loose tracking-wide text-right selection:bg-transparent py-4 px-2"
         >
           {chars.map((item, idx) => {
-            let colorClass = 'text-slate-500';
+            let colorClass = 'text-[#64748B]';
             let bgClass = '';
 
             if (item.status === 'correct') {
-              colorClass = 'text-emerald-400';
+              colorClass = 'text-[#38BDF8]';
             } else if (item.status === 'incorrect') {
               colorClass = 'text-rose-400 underline decoration-rose-500 decoration-wavy decoration-2';
             } else if (item.status === 'current') {
-              colorClass = 'text-white font-extrabold';
-              bgClass = 'bg-blue-600/30 ring-2 ring-blue-500 rounded px-1 animate-pulse';
+              colorClass = 'text-[#F8FAFC] font-extrabold';
+              bgClass = 'bg-[#2563EB]/40 ring-2 ring-[#38BDF8] rounded-md px-1.5 py-0.5 shadow-[0_0_12px_rgba(56,189,248,0.5)] animate-pulse';
             }
 
             return (
@@ -408,9 +408,9 @@ export const LessonPage: React.FC<LessonPageProps> = ({
         </div>
 
         {/* Progress Bar for Current Line */}
-        <div className="w-full mt-4 bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+        <div className="w-full mt-4 bg-[#0B1120] h-2.5 rounded-full overflow-hidden border border-white/[0.06] shadow-inner">
           <motion.div
-            className="h-full bg-gradient-to-r from-blue-600 to-cyan-400"
+            className="h-full bg-gradient-to-r from-[#2563EB] to-[#38BDF8] shadow-[0_0_10px_rgba(56,189,248,0.5)]"
             animate={{ width: `${progressPercent}%` }}
             transition={{ ease: 'easeOut', duration: 0.2 }}
           />
@@ -440,63 +440,63 @@ export const LessonPage: React.FC<LessonPageProps> = ({
       {/* Lesson Complete Modal */}
       <AnimatePresence>
         {showCompletionModal && completedStats && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B1120]/85 backdrop-blur-md">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl text-center relative overflow-hidden"
+              className="neu-card-raised w-full max-w-md rounded-3xl p-6 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-center relative overflow-hidden"
             >
               {/* Decorative top glow */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-10 bg-blue-500/20 blur-xl rounded-full"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-10 bg-[#2563EB]/25 blur-xl rounded-full"></div>
 
-              <div className="w-16 h-16 bg-blue-500/10 border border-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 text-blue-400 shadow-lg">
-                <Trophy className="w-8 h-8 text-amber-400 animate-bounce" />
+              <div className="w-16 h-16 bg-[#FACC15]/15 border border-[#FACC15]/30 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                <Trophy className="w-8 h-8 text-[#FACC15] animate-bounce" />
               </div>
 
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                 Lesson Complete!
               </span>
-              <h2 className="text-2xl font-black text-white mt-1">
+              <h2 className="text-2xl font-black text-[#F8FAFC] mt-1">
                 {lesson.title}
               </h2>
-              <p className="text-xs text-slate-400 font-urdu mt-0.5">
+              <p className="text-sm text-[#FACC15] font-urdu mt-0.5">
                 مبارک ہو! آپ نے یہ سبق کامیابی سے مکمل کر لیا ہے۔
               </p>
 
               {completedStats.isNewBest && (
-                <div className="inline-block my-2 px-3 py-1 bg-amber-500/20 border border-amber-500/40 rounded-full text-amber-300 font-semibold text-xs animate-pulse">
+                <div className="inline-block my-2 px-3 py-1 neu-badge-yellow rounded-full font-bold text-xs animate-pulse">
                   ⭐ New Personal Best WPM!
                 </div>
               )}
 
               {/* Stats Summary Grid */}
               <div className="grid grid-cols-2 gap-3 my-4">
-                <div className="bg-slate-950/70 border border-slate-800/80 p-3 rounded-2xl text-center">
-                  <div className="text-[11px] text-slate-400 font-medium">Speed</div>
-                  <div className="text-2xl font-black text-white">
+                <div className="neu-inset p-3.5 rounded-2xl text-center">
+                  <div className="text-[11px] text-[#94A3B8] font-medium">Speed</div>
+                  <div className="text-2xl font-black text-[#F8FAFC]">
                     {completedStats.wpm}{' '}
-                    <span className="text-xs text-slate-400 font-normal">WPM</span>
+                    <span className="text-xs font-normal text-[#94A3B8]">WPM</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-950/70 border border-slate-800/80 p-3 rounded-2xl text-center">
-                  <div className="text-[11px] text-slate-400 font-medium">Accuracy</div>
+                <div className="neu-inset p-3.5 rounded-2xl text-center">
+                  <div className="text-[11px] text-[#94A3B8] font-medium">Accuracy</div>
                   <div className="text-2xl font-black text-emerald-400">
                     {completedStats.accuracy}%
                   </div>
                 </div>
 
-                <div className="bg-slate-950/70 border border-slate-800/80 p-3 rounded-2xl text-center">
-                  <div className="text-[11px] text-slate-400 font-medium">Errors</div>
+                <div className="neu-inset p-3.5 rounded-2xl text-center">
+                  <div className="text-[11px] text-[#94A3B8] font-medium">Errors</div>
                   <div className="text-2xl font-black text-rose-400">
                     {completedStats.errors}
                   </div>
                 </div>
 
-                <div className="bg-slate-950/70 border border-slate-800/80 p-3 rounded-2xl text-center">
-                  <div className="text-[11px] text-slate-400 font-medium">Time Taken</div>
-                  <div className="text-2xl font-black text-purple-300">
+                <div className="neu-inset p-3.5 rounded-2xl text-center">
+                  <div className="text-[11px] text-[#94A3B8] font-medium">Time Taken</div>
+                  <div className="text-2xl font-black text-[#FACC15]">
                     {formatTime(completedStats.durationSeconds)}
                   </div>
                 </div>
@@ -510,7 +510,7 @@ export const LessonPage: React.FC<LessonPageProps> = ({
                       setShowCompletionModal(false);
                       onNextLesson();
                     }}
-                    className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition cursor-pointer"
+                    className="neu-btn-accent w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition cursor-pointer"
                   >
                     <span>Next Lesson</span>
                     <ArrowRight className="w-4 h-4" />
@@ -524,7 +524,7 @@ export const LessonPage: React.FC<LessonPageProps> = ({
                       setCurrentLineIndex(0);
                       reset();
                     }}
-                    className="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs flex items-center justify-center gap-1.5 transition"
+                    className="neu-btn-secondary py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Retry</span>
@@ -534,7 +534,7 @@ export const LessonPage: React.FC<LessonPageProps> = ({
                       setShowCompletionModal(false);
                       onBackToLessons();
                     }}
-                    className="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition"
+                    className="neu-btn-secondary py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer"
                   >
                     Back to Curriculum
                   </button>

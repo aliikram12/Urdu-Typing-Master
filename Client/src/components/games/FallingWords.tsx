@@ -225,64 +225,64 @@ export const FallingWords: React.FC<FallingWordsProps> = ({
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-4 select-none">
+    <div className="max-w-5xl mx-auto px-4 py-6 select-none">
       {/* Header bar */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="neu-card rounded-2xl p-4 mb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToGames}
-            className="p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition"
+            className="neu-btn-secondary p-2.5 rounded-xl text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-xl font-black text-white flex items-center gap-2">
+            <h1 className="text-xl font-black text-[#F8FAFC] flex items-center gap-2">
               <span>Falling Urdu Words</span>
-              <span className="font-urdu text-base text-blue-400">(گرتے ہوئے الفاظ)</span>
+              <span className="font-urdu text-base text-[#38BDF8]">(گرتے ہوئے الفاظ)</span>
             </h1>
-            <p className="text-xs text-slate-400">
-              Type each Urdu word phonetically before it reaches the danger zone!
+            <p className="text-xs text-[#94A3B8]">
+              Type each Urdu word phonetically before it touches the bottom danger line!
             </p>
           </div>
         </div>
 
         {/* Live HUD Stats */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center gap-3">
+          <div className="neu-inset px-3 py-1.5 rounded-xl flex items-center gap-1.5">
             {Array.from({ length: 3 }).map((_, i) => (
               <Heart
                 key={i}
-                className={`w-5 h-5 transition ${
-                  i < lives ? 'text-rose-500 fill-rose-500' : 'text-slate-700'
+                className={`w-5 h-5 transition-all ${
+                  i < lives ? 'text-rose-500 fill-rose-500 drop-shadow-[0_0_8px_rgba(244,63,94,0.5)]' : 'text-slate-700'
                 }`}
               />
             ))}
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl flex items-center gap-2">
-            <Flame className="w-4 h-4 text-amber-400" />
-            <span className="text-xs font-bold text-amber-300">
+          <div className="neu-badge-yellow px-3 py-1.5 rounded-xl flex items-center gap-2">
+            <Flame className="w-4 h-4 text-[#FACC15]" />
+            <span className="text-xs font-black text-[#FACC15]">
               {combo}x Combo
             </span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 px-4 py-1.5 rounded-xl">
-            <span className="text-[11px] text-slate-400 mr-2">Score:</span>
-            <span className="text-lg font-black text-white">{score}</span>
+          <div className="neu-inset px-4 py-1.5 rounded-xl flex items-center gap-2">
+            <span className="text-[11px] text-[#64748B] font-bold uppercase">Score</span>
+            <span className="text-lg font-black text-[#F8FAFC]">{score}</span>
           </div>
         </div>
       </div>
 
       {/* Main Game Stage */}
-      <div className="relative w-full h-[460px] my-4 bg-slate-950/90 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div className="relative w-full h-[470px] my-4 neu-inset rounded-3xl overflow-hidden shadow-2xl bg-[#080D18]">
         {/* Subtle background grid lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#16233A33_1px,transparent_1px),linear-gradient(to_bottom,#16233A33_1px,transparent_1px)] bg-[size:32px_32px]"></div>
 
         {/* Danger zone bottom line */}
-        <div className="absolute bottom-12 left-0 right-0 h-1 bg-rose-500/30 border-t border-rose-500/50"></div>
-        <div className="absolute bottom-2 left-4 text-[11px] font-bold text-rose-400/80 uppercase tracking-widest flex items-center gap-1.5">
+        <div className="absolute bottom-14 left-0 right-0 h-1 bg-rose-500/40 border-t border-rose-500/60 shadow-[0_0_12px_rgba(244,63,94,0.4)]"></div>
+        <div className="absolute bottom-3 left-4 text-[11px] font-bold text-rose-400 uppercase tracking-widest flex items-center gap-1.5 bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/30">
           <Zap className="w-3.5 h-3.5" />
-          <span>Danger Line</span>
+          <span>Danger Threshold</span>
         </div>
 
         {/* Active Falling Words */}
@@ -293,25 +293,25 @@ export const FallingWords: React.FC<FallingWordsProps> = ({
               left: `${w.x}%`,
               top: `${w.y}%`,
             }}
-            className="absolute -translate-x-1/2 flex flex-col items-center bg-slate-900/95 border border-blue-500/40 px-4 py-2 rounded-2xl shadow-xl shadow-blue-950/40 backdrop-blur pointer-events-none"
+            className="absolute -translate-x-1/2 flex flex-col items-center bg-[#111C31] border-t border-white/20 border-b border-black/60 px-5 py-2.5 rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.6),0_0_15px_rgba(37,99,235,0.25)] backdrop-blur pointer-events-none"
           >
-            <span className="font-urdu text-2xl font-bold text-white leading-relaxed">
+            <span className="font-urdu text-2xl font-bold text-[#F8FAFC] leading-relaxed">
               {w.urdu}
             </span>
-            <span className="text-[10px] font-mono text-slate-400 tracking-wider">
+            <span className="text-[10px] font-mono text-[#38BDF8] tracking-widest font-bold">
               {w.romanHint}
             </span>
           </motion.div>
         ))}
 
         {/* Active Typed Input Display */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-slate-700/80 px-6 py-2 rounded-2xl shadow-2xl flex items-center gap-3">
-          <span className="text-xs text-slate-400 font-medium">Your Input:</span>
-          <div className="font-urdu text-xl font-bold text-cyan-300 min-w-[60px] text-center">
-            {typedUrdu || <span className="text-slate-600 text-sm">type here...</span>}
+        <div className="absolute bottom-3.5 left-1/2 -translate-x-1/2 neu-card-raised px-7 py-2.5 rounded-2xl flex items-center gap-4 border border-[#2563EB]/40">
+          <span className="text-xs text-[#64748B] font-bold uppercase tracking-wider">Input:</span>
+          <div className="font-urdu text-2xl font-bold text-[#38BDF8] min-w-[70px] text-center">
+            {typedUrdu || <span className="text-[#64748B] text-sm font-sans">Type here...</span>}
           </div>
           {inputBuffer && (
-            <span className="font-mono text-xs text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
+            <span className="font-mono text-xs text-[#FACC15] bg-[#0B1120] border border-slate-700/60 px-2.5 py-1 rounded-lg neu-inset">
               {inputBuffer}
             </span>
           )}
@@ -321,46 +321,46 @@ export const FallingWords: React.FC<FallingWordsProps> = ({
       {/* Game Over Modal */}
       <AnimatePresence>
         {isGameOver && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center"
+              className="neu-card-raised w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center border border-slate-700"
             >
-              <div className="w-16 h-16 bg-rose-500/10 border border-rose-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 text-rose-400 shadow-lg">
-                <Trophy className="w-8 h-8 text-amber-400" />
+              <div className="w-16 h-16 bg-[#FACC15]/10 border border-[#FACC15]/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-[#FACC15] shadow-lg">
+                <Trophy className="w-8 h-8 text-[#FACC15]" />
               </div>
 
-              <span className="text-xs font-bold uppercase tracking-wider text-rose-400">
-                Game Over
+              <span className="neu-badge-yellow text-xs font-bold uppercase tracking-wider px-3 py-1">
+                Round Finished
               </span>
-              <h2 className="text-2xl font-black text-white mt-1">Great Effort!</h2>
+              <h2 className="text-2xl font-black text-[#F8FAFC] mt-2">Challenge Over!</h2>
 
-              <div className="grid grid-cols-2 gap-3 my-4">
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                  <div className="text-[11px] text-slate-400">Final Score</div>
-                  <div className="text-2xl font-black text-white">{score}</div>
+              <div className="grid grid-cols-2 gap-3 my-5">
+                <div className="neu-inset p-3.5 rounded-2xl">
+                  <div className="text-[11px] text-[#64748B] font-bold uppercase">Final Score</div>
+                  <div className="text-2xl font-black text-[#F8FAFC] mt-0.5">{score}</div>
                 </div>
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                  <div className="text-[11px] text-slate-400">Words Cleared</div>
-                  <div className="text-2xl font-black text-emerald-400">{wordsCompleted}</div>
+                <div className="neu-inset p-3.5 rounded-2xl">
+                  <div className="text-[11px] text-[#64748B] font-bold uppercase">Words Cleared</div>
+                  <div className="text-2xl font-black text-[#38BDF8] mt-0.5">{wordsCompleted}</div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2.5">
                 <button
                   onClick={restartGame}
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition cursor-pointer"
+                  className="neu-btn-primary w-full py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>Play Again</span>
                 </button>
                 <button
                   onClick={onBackToGames}
-                  className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition cursor-pointer"
+                  className="neu-btn-secondary w-full py-2.5 rounded-xl text-xs font-bold text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer"
                 >
-                  Change Game
+                  Return to Games Hub
                 </button>
               </div>
             </motion.div>

@@ -58,19 +58,19 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-      <div className="bg-slate-900 border border-slate-800 w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B1120]/85 backdrop-blur-md select-none">
+      <div className="neu-card-raised w-full max-w-3xl rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
         {/* Modal Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div className="p-5 border-b border-white/[0.07] bg-[#111C31] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-500/10 text-blue-400 rounded-xl">
+            <div className="p-2.5 bg-[#2563EB]/15 text-[#38BDF8] rounded-2xl border border-[#2563EB]/30 shadow-sm">
               <Keyboard className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-black text-white">
+              <h2 className="text-lg font-black text-[#F8FAFC]">
                 Urdu Phonetic Keyboard Reference Map
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#94A3B8]">
                 Complete mapping between English QWERTY keys and Urdu Nastaliq characters
               </p>
             </div>
@@ -78,32 +78,32 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+            className="neu-btn-secondary p-2 rounded-xl text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Search & Tabs */}
-        <div className="p-4 border-b border-slate-800/80 bg-slate-950/40 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 flex-1 max-w-xs">
-            <Search className="w-4 h-4 text-slate-500" />
+        <div className="p-4 border-b border-white/[0.06] bg-[#0E1626] flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2 neu-input px-3 py-1.5 rounded-xl flex-1 max-w-xs">
+            <Search className="w-4 h-4 text-[#64748B]" />
             <input
               type="text"
               placeholder="Search letter or key..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none w-full"
+              className="bg-transparent text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none w-full"
             />
           </div>
 
-          <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <div className="flex items-center gap-1 bg-[#070B14] p-1 rounded-xl border border-white/[0.06] text-xs shadow-inner">
             <button
               onClick={() => setActiveTab('single')}
               className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeTab === 'single'
-                  ? 'bg-blue-600 text-white shadow'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'neu-btn-primary text-xs shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               Single Keys ({singleKeys.length})
@@ -112,8 +112,8 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
               onClick={() => setActiveTab('multi')}
               className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeTab === 'multi'
-                  ? 'bg-blue-600 text-white shadow'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'neu-btn-primary text-xs shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               Multi-Key Shortcuts ({multiKeys.length})
@@ -122,8 +122,8 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
               onClick={() => setActiveTab('special')}
               className={`px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer ${
                 activeTab === 'special'
-                  ? 'bg-blue-600 text-white shadow'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'neu-btn-primary text-xs shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               Punctuation & Diacritics
@@ -132,25 +132,25 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
         </div>
 
         {/* Scrollable Content */}
-        <div className="p-6 overflow-y-auto flex-1">
+        <div className="p-6 overflow-y-auto flex-1 bg-[#111C31]">
           {activeTab === 'single' && (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {filteredSingle.map((item, i) => (
                 <div
                   key={i}
-                  className="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center justify-between"
+                  className="neu-inset p-3 rounded-2xl flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="font-urdu text-2xl font-bold text-amber-300">
+                    <span className="font-urdu text-2xl font-bold text-[#FACC15]">
                       {item.urdu}
                     </span>
                     {item.isShift && (
-                      <span className="text-[9px] font-bold text-blue-400 bg-blue-500/10 px-1 rounded">
+                      <span className="text-[9px] font-bold text-[#38BDF8] bg-[#38BDF8]/15 px-1 py-0.5 rounded border border-[#38BDF8]/25">
                         SHIFT
                       </span>
                     )}
                   </div>
-                  <kbd className="font-mono text-xs font-bold text-white bg-slate-800 px-2 py-1 rounded-lg border border-slate-700 shadow-sm">
+                  <kbd className="font-mono text-xs font-bold text-[#F8FAFC] bg-[#16233A] px-2 py-1 rounded-lg border border-white/[0.08] shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
                     {item.prompts.map(p => (p.length === 1 ? p.toUpperCase() : p)).join(' / ')}
                   </kbd>
                 </div>
@@ -163,7 +163,7 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
               {filteredMulti.map((item, i) => (
                 <div
                   key={i}
-                  className="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center justify-between"
+                  className="neu-inset p-3 rounded-2xl flex items-center justify-between"
                 >
                   <div>
                     <span className="font-urdu text-2xl font-bold text-emerald-400">
@@ -171,10 +171,10 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
                     </span>
                   </div>
                   <div className="text-right">
-                    <kbd className="font-mono text-xs font-bold text-white bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 shadow-sm">
+                    <kbd className="font-mono text-xs font-bold text-[#F8FAFC] bg-[#16233A] px-2.5 py-1 rounded-lg border border-white/[0.08] shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
                       {item.seq.toUpperCase()}
                     </kbd>
-                    <div className="text-[10px] text-slate-500 mt-1">
+                    <div className="text-[10px] text-[#64748B] mt-1">
                       Type &quot;{item.seq}&quot;
                     </div>
                   </div>
@@ -188,17 +188,17 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
               {specialKeys.map((item, i) => (
                 <div
                   key={i}
-                  className="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center justify-between"
+                  className="neu-inset p-3 rounded-2xl flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-urdu text-2xl font-bold text-cyan-300">
+                    <span className="font-urdu text-2xl font-bold text-[#38BDF8]">
                       {item.urdu}
                     </span>
-                    <span className="text-xs text-slate-300 font-medium">
+                    <span className="text-xs text-[#94A3B8] font-medium">
                       {item.name}
                     </span>
                   </div>
-                  <kbd className="font-mono text-xs font-bold text-white bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">
+                  <kbd className="font-mono text-xs font-bold text-[#F8FAFC] bg-[#16233A] px-2.5 py-1 rounded-lg border border-white/[0.08] shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
                     {item.key}
                   </kbd>
                 </div>
@@ -208,11 +208,11 @@ export const KeyboardReferenceModal: React.FC<KeyboardReferenceModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+        <div className="p-4 bg-[#0E1626] border-t border-white/[0.06] flex items-center justify-between text-xs text-[#94A3B8]">
           <span>Standard Urdu Phonetic 1.0 (CRULP / NLA Layout)</span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold cursor-pointer"
+            className="neu-btn-secondary px-4 py-1.5 rounded-xl font-semibold cursor-pointer text-[#F8FAFC]"
           >
             Close
           </button>

@@ -100,79 +100,87 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 select-none">
+    <div className="max-w-6xl mx-auto px-4 py-8 select-none">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
-          <Activity className="w-4 h-4" />
+      <div className="mb-8">
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider neu-badge-blue px-3 py-1 mb-3">
+          <Activity className="w-4 h-4 text-[#38BDF8]" />
           <span>Keystroke Telemetry & Analytics</span>
         </div>
-        <h1 className="text-2xl md:text-3xl font-black text-white mt-1">
+        <h1 className="text-3xl md:text-4xl font-black text-[#F8FAFC] tracking-tight">
           Performance Analytics
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-[#94A3B8] mt-2 max-w-2xl leading-relaxed">
           In-depth key-level accuracy tracking, latency benchmarks, and adaptive practice recommendations.
         </p>
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
+        <div className="neu-card p-5 rounded-2xl">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-3 font-semibold">
             <span>Average Speed</span>
-            <TrendingUp className="w-4 h-4 text-blue-400" />
+            <div className="w-8 h-8 rounded-lg neu-inset flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-[#38BDF8]" />
+            </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-white">
-            {avgWpm} <span className="text-xs font-normal text-slate-400">WPM</span>
+          <div className="text-2xl md:text-3xl font-black text-[#F8FAFC]">
+            {avgWpm} <span className="text-xs font-bold text-[#64748B]">WPM</span>
           </div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
+        <div className="neu-card p-5 rounded-2xl">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-3 font-semibold">
             <span>Overall Accuracy</span>
-            <Target className="w-4 h-4 text-emerald-400" />
+            <div className="w-8 h-8 rounded-lg neu-inset flex items-center justify-center">
+              <Target className="w-4 h-4 text-[#38BDF8]" />
+            </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-emerald-400">
+          <div className="text-2xl md:text-3xl font-black text-[#38BDF8]">
             {avgAcc}%
           </div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-            <span>Total Practice Time</span>
-            <BarChart3 className="w-4 h-4 text-purple-400" />
+        <div className="neu-card p-5 rounded-2xl">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-3 font-semibold">
+            <span>Practice Time</span>
+            <div className="w-8 h-8 rounded-lg neu-inset flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-[#2563EB]" />
+            </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-purple-300">
-            {totalMinutes} <span className="text-xs font-normal text-slate-400">mins</span>
+          <div className="text-2xl md:text-3xl font-black text-[#F8FAFC]">
+            {totalMinutes} <span className="text-xs font-bold text-[#64748B]">mins</span>
           </div>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
+        <div className="neu-card p-5 rounded-2xl">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-3 font-semibold">
             <span>Sessions Recorded</span>
-            <Zap className="w-4 h-4 text-amber-400" />
+            <div className="w-8 h-8 rounded-lg neu-inset flex items-center justify-center">
+              <Zap className="w-4 h-4 text-[#FACC15]" />
+            </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-amber-300">
+          <div className="text-2xl md:text-3xl font-black text-[#FACC15]">
             {sessions.length}
           </div>
         </div>
       </div>
 
       {/* Smart Practice Recommendation Box */}
-      <div className="bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-slate-900 border border-blue-800/40 rounded-3xl p-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+      <div className="neu-card-raised rounded-3xl p-7 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 border border-[#2563EB]/40">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">
-            <Sparkles className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider neu-badge-cyan px-2.5 py-0.5 mb-2">
+            <Sparkles className="w-3.5 h-3.5 text-[#38BDF8]" />
             <span>AI Weak Key Diagnostic</span>
           </div>
-          <h3 className="text-lg font-bold text-white">
+          <h3 className="text-xl font-bold text-[#F8FAFC]">
             Personalized Smart Practice Available
           </h3>
-          <p className="text-xs text-slate-300 max-w-xl mt-1">
+          <p className="text-xs text-[#94A3B8] max-w-xl mt-1.5 leading-relaxed">
             {weakKeys.length > 0 ? (
               <>
                 Our telemetry detected lower accuracy on letters{' '}
-                <strong className="text-amber-300 font-urdu text-base">
+                <strong className="text-[#FACC15] font-urdu text-lg font-bold">
                   {weakKeys.map(w => w.urduChar).join('، ')}
                 </strong>
                 . Complete a 5-minute targeted drill to reinforce those specific fingers.
@@ -185,7 +193,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
 
         <button
           onClick={launchSmartPractice}
-          className="px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition cursor-pointer shrink-0"
+          className="neu-btn-accent px-6 py-3.5 rounded-2xl text-xs font-black flex items-center gap-2 cursor-pointer shrink-0"
         >
           <span>Start Smart Practice</span>
           <ArrowRight className="w-4 h-4" />
@@ -195,28 +203,28 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
       {/* Weak Keys List Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Left: Weak Keys Breakdown */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6">
+        <div className="neu-card rounded-3xl p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-400" />
-              <h3 className="text-sm font-bold text-white">Weak Key Detection</h3>
+              <AlertTriangle className="w-4 h-4 text-[#FACC15]" />
+              <h3 className="text-base font-bold text-[#F8FAFC]">Weak Key Detection</h3>
             </div>
-            <span className="text-[11px] text-slate-500">Sorted by lowest accuracy</span>
+            <span className="text-[11px] text-[#64748B]">Sorted by lowest accuracy</span>
           </div>
 
           {weakKeys.length > 0 ? (
-            <div className="divide-y divide-slate-800/80">
+            <div className="neu-inset rounded-2xl overflow-hidden divide-y divide-slate-800/70">
               {weakKeys.map(w => (
-                <div key={w.urduChar} className="py-3 flex items-center justify-between">
+                <div key={w.urduChar} className="p-3.5 flex items-center justify-between hover:bg-[#111C31]/40 transition">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center font-urdu text-xl font-bold text-amber-300">
+                    <div className="w-10 h-10 rounded-xl neu-card flex items-center justify-center font-urdu text-xl font-black text-[#FACC15] border border-[#FACC15]/30">
                       {w.urduChar}
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-white">
+                      <div className="text-xs font-bold text-[#F8FAFC]">
                         Key: {w.key.toUpperCase()}
                       </div>
-                      <div className="text-[11px] text-slate-500">
+                      <div className="text-[11px] text-[#64748B]">
                         {w.totalPresses} attempts • avg latency {w.averageLatencyMs}ms
                       </div>
                     </div>
@@ -228,40 +236,40 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                         w.accuracy < 75
                           ? 'text-rose-400'
                           : w.accuracy < 85
-                          ? 'text-amber-400'
-                          : 'text-emerald-400'
+                          ? 'text-[#FACC15]'
+                          : 'text-[#38BDF8]'
                       }`}
                     >
                       {w.accuracy}%
                     </div>
-                    <div className="text-[10px] text-slate-500">accuracy</div>
+                    <div className="text-[10px] text-[#64748B] uppercase font-bold">accuracy</div>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-xs text-slate-500">
+            <div className="neu-inset rounded-2xl p-8 text-center text-xs text-[#64748B]">
               No weak keys identified yet. Continue practicing to generate diagnostic data.
             </div>
           )}
         </div>
 
         {/* Right: Recent Typing History */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6">
+        <div className="neu-card rounded-3xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-white">Recent Session Logs</h3>
-            <span className="text-[11px] text-slate-500">Latest 5 sessions</span>
+            <h3 className="text-base font-bold text-[#F8FAFC]">Recent Session Logs</h3>
+            <span className="text-[11px] text-[#64748B]">Latest 5 sessions</span>
           </div>
 
           {sessions.length > 0 ? (
-            <div className="divide-y divide-slate-800/80">
+            <div className="neu-inset rounded-2xl overflow-hidden divide-y divide-slate-800/70">
               {sessions.slice(0, 5).map(s => (
-                <div key={s.id} className="py-3 flex items-center justify-between text-xs">
+                <div key={s.id} className="p-3.5 flex items-center justify-between text-xs hover:bg-[#111C31]/40 transition">
                   <div>
-                    <div className="font-bold text-white">
+                    <div className="font-bold text-[#F8FAFC]">
                       {s.lessonTitle || `Session (${s.mode})`}
                     </div>
-                    <div className="text-[11px] text-slate-500">
+                    <div className="text-[11px] text-[#64748B]">
                       {new Date(s.createdAt).toLocaleDateString()} at{' '}
                       {new Date(s.createdAt).toLocaleTimeString([], {
                         hour: '2-digit',
@@ -270,10 +278,10 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-extrabold text-white">
-                      {s.wpm} <span className="text-[10px] font-normal text-slate-400">WPM</span>
+                    <div className="font-black text-[#F8FAFC]">
+                      {s.wpm} <span className="text-[10px] font-bold text-[#64748B]">WPM</span>
                     </div>
-                    <div className="text-[11px] text-emerald-400 font-semibold">
+                    <div className="text-[11px] text-[#38BDF8] font-bold">
                       {s.accuracy}% Acc
                     </div>
                   </div>
@@ -281,7 +289,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-xs text-slate-500">
+            <div className="neu-inset rounded-2xl p-8 text-center text-xs text-[#64748B]">
               No typing sessions recorded yet. Start a lesson to build your history!
             </div>
           )}
@@ -289,71 +297,73 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
       </div>
 
       {/* Interactive Key Accuracy Heatmap */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6">
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+      <div className="neu-card rounded-3xl p-6">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
           <div>
-            <h3 className="text-sm font-bold text-white">Key Accuracy Heatmap</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-base font-bold text-[#F8FAFC]">Key Accuracy Heatmap</h3>
+            <p className="text-xs text-[#94A3B8] mt-0.5">
               Visualizes accuracy across all phonetic keys based on your personal keystrokes.
             </p>
           </div>
 
           {/* Legend */}
-          <div className="flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-4 text-xs font-semibold">
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded bg-emerald-500"></span>
-              <span className="text-slate-400">&gt; 90% (High)</span>
+              <span className="w-3 h-3 rounded-full bg-[#38BDF8]"></span>
+              <span className="text-[#94A3B8]">&gt; 90% (High)</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded bg-amber-500"></span>
-              <span className="text-slate-400">80 - 90% (Medium)</span>
+              <span className="w-3 h-3 rounded-full bg-[#FACC15]"></span>
+              <span className="text-[#94A3B8]">80 - 90% (Medium)</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded bg-rose-500"></span>
-              <span className="text-slate-400">&lt; 80% (Weak)</span>
+              <span className="w-3 h-3 rounded-full bg-rose-500"></span>
+              <span className="text-[#94A3B8]">&lt; 80% (Weak)</span>
             </div>
           </div>
         </div>
 
-        {/* Mini Keyboard Heatmap */}
-        <div className="flex flex-col gap-1.5 overflow-x-auto pb-2">
-          {KEYBOARD_ROWS.slice(1, 4).map((row, rIdx) => (
-            <div key={rIdx} className="flex gap-1.5 justify-center">
-              {row.map(k => {
-                const stat = keyStats[k.urduNormal];
-                let bgClass = 'bg-slate-950 border-slate-800 text-slate-500';
+        {/* Mini Keyboard Heatmap Bay */}
+        <div className="neu-inset p-5 rounded-2xl overflow-x-auto bg-[#080D18]">
+          <div className="flex flex-col gap-2 min-w-[500px]">
+            {KEYBOARD_ROWS.slice(1, 4).map((row, rIdx) => (
+              <div key={rIdx} className="flex gap-2 justify-center">
+                {row.map(k => {
+                  const stat = keyStats[k.urduNormal];
+                  let keycapColorClass = 'text-[#64748B] border-slate-700/60 bg-[#111C31]';
 
-                if (stat && stat.totalPresses >= 3) {
-                  if (stat.accuracy >= 90) {
-                    bgClass = 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300';
-                  } else if (stat.accuracy >= 80) {
-                    bgClass = 'bg-amber-950/60 border-amber-500/40 text-amber-300';
-                  } else {
-                    bgClass = 'bg-rose-950/60 border-rose-500/40 text-rose-300';
-                  }
-                }
-
-                return (
-                  <div
-                    key={k.code}
-                    className={`h-11 w-11 md:w-12 rounded-xl border flex flex-col items-center justify-center p-1 select-none transition ${bgClass}`}
-                    title={
-                      stat
-                        ? `${k.urduNormal} (${k.normal.toUpperCase()}): ${stat.accuracy}% accuracy (${stat.totalPresses} presses)`
-                        : `${k.urduNormal} (${k.normal.toUpperCase()}): No data yet`
+                  if (stat && stat.totalPresses >= 3) {
+                    if (stat.accuracy >= 90) {
+                      keycapColorClass = 'bg-[#111C31] border-[#38BDF8]/60 text-[#38BDF8] shadow-[0_0_10px_rgba(56,189,248,0.25)]';
+                    } else if (stat.accuracy >= 80) {
+                      keycapColorClass = 'bg-[#111C31] border-[#FACC15]/60 text-[#FACC15] shadow-[0_0_10px_rgba(250,204,21,0.25)]';
+                    } else {
+                      keycapColorClass = 'bg-[#111C31] border-rose-500/60 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.25)]';
                     }
-                  >
-                    <span className="text-[10px] font-mono font-bold opacity-75">
-                      {k.normal.toUpperCase()}
-                    </span>
-                    <span className="font-urdu text-sm font-bold">
-                      {k.urduNormal}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+                  }
+
+                  return (
+                    <div
+                      key={k.code}
+                      className={`neu-keycap h-12 w-12 md:w-13 rounded-xl flex flex-col items-center justify-center p-1 select-none transition-all ${keycapColorClass}`}
+                      title={
+                        stat
+                          ? `${k.urduNormal} (${k.normal.toUpperCase()}): ${stat.accuracy}% accuracy (${stat.totalPresses} presses)`
+                          : `${k.urduNormal} (${k.normal.toUpperCase()}): No data yet`
+                      }
+                    >
+                      <span className="text-[10px] font-mono font-black opacity-80">
+                        {k.normal.toUpperCase()}
+                      </span>
+                      <span className="font-urdu text-sm font-black">
+                        {k.urduNormal}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

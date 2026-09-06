@@ -125,36 +125,36 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 select-none">
       {/* Personalized Welcome Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-blue-950/40 border border-slate-800 rounded-3xl p-6 md:p-8 mb-6 shadow-xl relative overflow-hidden">
-        <div className="absolute -top-12 -right-12 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="neu-card-raised rounded-3xl p-6 md:p-8 mb-6 relative overflow-hidden">
+        <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-2xl shadow-lg shadow-blue-500/20 border border-blue-400/30 shrink-0">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-b from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] flex items-center justify-center text-2xl shadow-[0_4px_12px_rgba(37,99,235,0.4),inset_0_1px_1px_rgba(255,255,255,0.35)] border border-white/20 shrink-0">
               {user.avatar || '👨‍💻'}
             </div>
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                 <span>Personal Dashboard</span>
-                <span className="text-slate-500">•</span>
-                <span className="text-slate-400">Urdu Phonetic Typing Master</span>
+                <span className="text-[#64748B]">•</span>
+                <span className="text-[#94A3B8]">Urdu Phonetic Typing Master</span>
               </div>
-              <h1 className="text-2xl md:text-3xl font-black text-white mt-1">
+              <h1 className="text-2xl md:text-3xl font-black text-[#F8FAFC] mt-1">
                 Welcome, {user.name || 'Typist'}! 👋
               </h1>
-              <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-slate-400">
+              <div className="flex flex-wrap items-center gap-2.5 mt-2 text-xs text-[#94A3B8]">
                 {user.email && (
-                  <span className="flex items-center gap-1 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/60">
-                    <Mail className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="flex items-center gap-1.5 bg-[#070B14] px-2.5 py-1 rounded-xl border border-white/[0.06] text-[#94A3B8] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.5)]">
+                    <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
                     <span>{user.email}</span>
                   </span>
                 )}
-                <span className="flex items-center gap-1 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700/60">
-                  <Calendar className="w-3.5 h-3.5 text-blue-400" />
+                <span className="flex items-center gap-1.5 bg-[#16233A] px-2.5 py-1 rounded-xl border border-white/[0.07] text-[#94A3B8] shadow-sm">
+                  <Calendar className="w-3.5 h-3.5 text-[#38BDF8]" />
                   <span>Joined: {memberSince}</span>
                 </span>
-                <span className="flex items-center gap-1 bg-blue-500/10 text-blue-300 px-2.5 py-1 rounded-lg border border-blue-500/20 font-medium">
-                  <Award className="w-3.5 h-3.5 text-blue-400" />
+                <span className="flex items-center gap-1.5 bg-[#2563EB]/15 text-[#60A5FA] px-2.5 py-1 rounded-xl border border-[#2563EB]/30 font-semibold shadow-sm">
+                  <Award className="w-3.5 h-3.5 text-[#38BDF8]" />
                   <span>Level: {user.level || 'Beginner'}</span>
                 </span>
               </div>
@@ -163,15 +163,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           {/* Daily Streak & Practice Status */}
           <div className="flex items-center gap-3 self-stretch md:self-auto justify-end">
-            <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 border border-amber-500/30 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-inner">
-              <div className="p-2.5 bg-amber-500/20 text-amber-400 rounded-xl">
-                <Flame className="w-6 h-6 animate-pulse fill-amber-400" />
+            <div className="neu-badge-yellow px-5 py-3 rounded-2xl flex items-center gap-3 shadow-md">
+              <div className="p-2.5 bg-[#FACC15]/20 text-[#FACC15] rounded-xl">
+                <Flame className="w-6 h-6 animate-pulse fill-[#FACC15]" />
               </div>
               <div>
-                <div className="text-sm font-black text-amber-400 uppercase tracking-wider">
+                <div className="text-sm font-black text-[#FACC15] uppercase tracking-wider">
                   {user.streakDays || 0} Day Streak
                 </div>
-                <div className="text-xs text-slate-300">
+                <div className="text-xs text-[#94A3B8]">
                   {user.streakDays && user.streakDays > 0 ? 'Daily practice active' : 'Start your streak today'}
                 </div>
               </div>
@@ -183,41 +183,42 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Primary Continue Practice Card & Goal Container */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
         {/* Large Continue Practice Hero */}
-        <div className="lg:col-span-2 bg-gradient-to-br from-blue-900/40 via-indigo-950/30 to-slate-900/90 border border-blue-800/50 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="lg:col-span-2 neu-card-raised rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none"></div>
 
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-500/20 px-3 py-1 rounded-full border border-blue-500/30">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#38BDF8] bg-[#38BDF8]/10 px-3 py-1 rounded-full border border-[#38BDF8]/25 shadow-sm">
                 Recommended Next Step
               </span>
-              <span className="text-xs text-slate-400 font-medium">
+              <span className="text-xs text-[#94A3B8] font-medium">
                 Lesson {nextLesson.id.toString().padStart(2, '0')} • {nextLesson.difficulty}
               </span>
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-black text-white mt-2">
+            <h2 className="text-2xl md:text-3xl font-black text-[#F8FAFC] mt-2">
               {nextLesson.title}
             </h2>
-            <div className="font-urdu text-xl text-amber-300 font-bold mt-1">
+            <div className="font-urdu text-2xl text-[#FACC15] font-bold mt-1 drop-shadow-[0_2px_8px_rgba(250,204,21,0.25)]">
               {nextLesson.titleUrdu}
             </div>
 
-            <p className="text-xs md:text-sm text-slate-300 max-w-xl mt-3 leading-relaxed">
+            <p className="text-xs md:text-sm text-[#94A3B8] max-w-xl mt-3 leading-relaxed">
               {nextLesson.description}
             </p>
           </div>
 
-          <div className="mt-8 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4">
-            <div className="text-xs text-slate-400">
-              Target Speed: <strong className="text-white">{nextLesson.targetWpm} WPM</strong>
-              <span className="mx-2">•</span>
+          <div className="mt-8 pt-4 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4">
+            <div className="text-xs text-[#94A3B8]">
+              Target Speed: <strong className="text-[#F8FAFC]">{nextLesson.targetWpm} WPM</strong>
+              <span className="mx-2 text-[#64748B]">•</span>
               Accuracy: <strong className="text-emerald-400">{nextLesson.targetAccuracy}%</strong>
             </div>
 
+            {/* Important CTA: Warm Yellow Button with dark navy text */}
             <button
               onClick={() => onNavigate('lesson', nextLesson)}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-2xl text-xs flex items-center gap-2 shadow-xl shadow-blue-600/30 transition cursor-pointer"
+              className="neu-btn-accent px-6 py-3 rounded-xl text-xs flex items-center gap-2 cursor-pointer"
             >
               <Play className="w-4 h-4 fill-current" />
               <span>Continue Practice</span>
@@ -226,45 +227,45 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Current Goal & 7-Day Streak Calendar */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between shadow-xl">
+        <div className="neu-card rounded-3xl p-6 flex flex-col justify-between shadow-xl">
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-              <span className="font-bold uppercase tracking-wider text-slate-400">Current Milestone</span>
-              <span className="text-blue-400 font-bold">{goalProgress}%</span>
+            <div className="flex items-center justify-between text-xs text-[#94A3B8] mb-2">
+              <span className="font-bold uppercase tracking-wider text-[#94A3B8]">Current Milestone</span>
+              <span className="text-[#38BDF8] font-bold">{goalProgress}%</span>
             </div>
-            <h3 className="text-lg font-bold text-white">
+            <h3 className="text-lg font-bold text-[#F8FAFC]">
               Reach {targetWpm} WPM
             </h3>
-            <div className="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800 my-3">
+            <div className="w-full neu-inset h-2.5 rounded-full overflow-hidden my-3">
               <div
-                className="h-full bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#2563EB] to-[#38BDF8] rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(56,189,248,0.5)]"
                 style={{ width: `${goalProgress}%` }}
               ></div>
             </div>
-            <div className="flex justify-between text-[11px] text-slate-500">
+            <div className="flex justify-between text-[11px] text-[#64748B]">
               <span>Current: {avgWpm} WPM</span>
               <span>Target: {targetWpm} WPM</span>
             </div>
           </div>
 
           {/* 7-Day Streak Calendar */}
-          <div className="mt-6 pt-4 border-t border-slate-800/80">
-            <div className="flex items-center justify-between text-xs text-slate-400 mb-2.5">
+          <div className="mt-6 pt-4 border-t border-white/[0.06]">
+            <div className="flex items-center justify-between text-xs text-[#94A3B8] mb-2.5">
               <span className="font-semibold">7-Day Consistency</span>
-              <span className="text-amber-400 text-[11px] font-bold">
+              <span className="text-[#FACC15] text-[11px] font-bold">
                 {user.streakDays || 0} Day Streak 🔥
               </span>
             </div>
-            <div className="grid grid-cols-7 gap-1 text-center">
+            <div className="grid grid-cols-7 gap-1.5 text-center">
               {weekDays.map((day, i) => (
                 <div
                   key={i}
-                  className={`p-1.5 rounded-xl border flex flex-col items-center gap-1 ${
+                  className={`p-1.5 rounded-xl border flex flex-col items-center gap-1 transition-all ${
                     day.isPracticed
-                      ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
+                      ? 'bg-emerald-500/15 border-emerald-500/35 text-emerald-300 shadow-sm'
                       : day.isCurrent
-                      ? 'bg-slate-950 border-blue-500/60 text-slate-300 ring-1 ring-blue-500/40'
-                      : 'bg-slate-950 border-slate-800 text-slate-600'
+                      ? 'neu-inset border-[#2563EB] text-[#F8FAFC] ring-1 ring-[#2563EB]/40'
+                      : 'neu-inset border-white/[0.05] text-[#64748B]'
                   }`}
                 >
                   <span className="text-[10px] uppercase font-bold">{day.name[0]}</span>
@@ -278,82 +279,82 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </div>
 
-      {/* 4 Performance Metric Cards (100% Dynamic from User's Records) */}
+      {/* 4 Performance Metric Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-gradient-to-b from-slate-900/90 to-slate-900/50 border border-slate-800 hover:border-blue-500/40 p-5 rounded-2xl shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 group">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-            <span className="font-medium group-hover:text-blue-300 transition-colors">Average Speed</span>
-            <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 transition">
+        <div className="neu-card-interactive p-5 rounded-2xl group">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-2">
+            <span className="font-medium group-hover:text-[#38BDF8] transition-colors">Average Speed</span>
+            <div className="p-1.5 rounded-xl bg-[#2563EB]/15 text-[#38BDF8] border border-[#2563EB]/30 transition shadow-sm">
               <Gauge className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-white tracking-tight">
-            {avgWpm} <span className="text-xs font-normal text-slate-400">WPM</span>
+          <div className="text-2xl md:text-3xl font-black text-[#F8FAFC] tracking-tight">
+            {avgWpm} <span className="text-xs font-normal text-[#94A3B8]">WPM</span>
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
+          <div className="text-[11px] text-[#64748B] mt-1">
             {totalTests > 0 ? `Across ${totalTests} test(s)` : 'No tests recorded'}
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-slate-900/90 to-slate-900/50 border border-slate-800 hover:border-emerald-500/40 p-5 rounded-2xl shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-300 group">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
+        <div className="neu-card-interactive p-5 rounded-2xl group">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-2">
             <span className="font-medium group-hover:text-emerald-300 transition-colors">Average Accuracy</span>
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition">
+            <div className="p-1.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 transition shadow-sm">
               <Target className="w-4 h-4" />
             </div>
           </div>
           <div className="text-2xl md:text-3xl font-black text-emerald-400 tracking-tight">
             {avgAcc}%
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
+          <div className="text-[11px] text-[#64748B] mt-1">
             {passedCount > 0 ? `${passedCount} test(s) passed` : 'Target threshold: ≥85%'}
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-slate-900/90 to-slate-900/50 border border-slate-800 hover:border-purple-500/40 p-5 rounded-2xl shadow-lg hover:shadow-purple-500/10 hover:-translate-y-1 transition-all duration-300 group">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-            <span className="font-medium group-hover:text-purple-300 transition-colors">Curriculum Lessons</span>
-            <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 transition">
+        <div className="neu-card-interactive p-5 rounded-2xl group">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-2">
+            <span className="font-medium group-hover:text-[#60A5FA] transition-colors">Curriculum Lessons</span>
+            <div className="p-1.5 rounded-xl bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30 transition shadow-sm">
               <BookOpen className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-purple-300 tracking-tight">
+          <div className="text-2xl md:text-3xl font-black text-[#60A5FA] tracking-tight">
             {completedLessons}{' '}
-            <span className="text-xs font-normal text-slate-400">/ {LESSONS.length}</span>
+            <span className="text-xs font-normal text-[#94A3B8]">/ {LESSONS.length}</span>
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
+          <div className="text-[11px] text-[#64748B] mt-1">
             {Math.round((completedLessons / LESSONS.length) * 100)}% completed
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-slate-900/90 to-slate-900/50 border border-slate-800 hover:border-amber-500/40 p-5 rounded-2xl shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1 transition-all duration-300 group">
-          <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-            <span className="font-medium group-hover:text-amber-300 transition-colors">Practice Time</span>
-            <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 group-hover:bg-amber-500/20 transition">
+        <div className="neu-card-interactive p-5 rounded-2xl group">
+          <div className="flex items-center justify-between text-[#94A3B8] text-xs mb-2">
+            <span className="font-medium group-hover:text-[#FACC15] transition-colors">Practice Time</span>
+            <div className="p-1.5 rounded-xl bg-[#FACC15]/15 text-[#FACC15] border border-[#FACC15]/30 transition shadow-sm">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl md:text-3xl font-black text-amber-300 tracking-tight">
+          <div className="text-2xl md:text-3xl font-black text-[#FACC15] tracking-tight">
             {timeFormatted}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
+          <div className="text-[11px] text-[#64748B] mt-1">
             Active training time
           </div>
         </div>
       </div>
 
-      {/* User-Specific Test & Activity History Section (Section 17 Requirement) */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 md:p-8 mb-8 shadow-xl">
+      {/* User-Specific Test & Activity History Section */}
+      <div className="neu-card rounded-3xl p-6 md:p-8 mb-8 shadow-xl">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
               <History className="w-4 h-4" />
               <span>Database Test Records</span>
             </div>
-            <h2 className="text-xl font-bold text-white mt-1">
+            <h2 className="text-xl font-bold text-[#F8FAFC] mt-1">
               Your Personal Test History
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-[#94A3B8] mt-0.5">
               Securely stored in MongoDB and isolated exclusively to your account.
             </p>
           </div>
@@ -361,7 +362,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => onNavigate('test')}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-blue-600/20"
+              className="neu-btn-primary px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer"
             >
               <Timer className="w-3.5 h-3.5" />
               <span>New Typing Test</span>
@@ -371,13 +372,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
         {/* History Table */}
         {loadingHistory ? (
-          <div className="py-12 text-center text-slate-500 text-xs">
+          <div className="py-12 text-center text-[#64748B] text-xs">
             Loading your personal history from the database...
           </div>
         ) : historyRecords.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/70 text-[11px] uppercase tracking-wider text-slate-400 border-b border-slate-800">
+            <table className="w-full text-left text-xs text-[#94A3B8]">
+              <thead className="bg-[#070B14] text-[11px] uppercase tracking-wider text-[#94A3B8] border-b border-white/[0.06]">
                 <tr>
                   <th scope="col" className="py-3 px-4 rounded-l-xl">Test / Activity</th>
                   <th scope="col" className="py-3 px-4">Score (WPM)</th>
@@ -386,35 +387,35 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <th scope="col" className="py-3 px-4 rounded-r-xl">Date & Time</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-white/[0.05]">
                 {historyRecords.map((item, index) => {
                   const isPassed = item.status === 'Passed';
                   const isFailed = item.status === 'Failed';
                   return (
-                    <tr key={item._id || item.id || index} className="hover:bg-slate-800/40 transition">
-                      <td className="py-3.5 px-4 font-semibold text-white flex items-center gap-2.5">
-                        <div className="p-1.5 rounded-lg bg-slate-800 text-blue-400 shrink-0">
+                    <tr key={item._id || item.id || index} className="hover:bg-[#16233A]/50 transition">
+                      <td className="py-3.5 px-4 font-semibold text-[#F8FAFC] flex items-center gap-2.5">
+                        <div className="p-1.5 rounded-lg bg-[#16233A] text-[#38BDF8] border border-white/[0.06] shrink-0">
                           {item.activityType === 'test' ? (
-                            <Timer className="w-4 h-4 text-cyan-400" />
+                            <Timer className="w-4 h-4 text-[#38BDF8]" />
                           ) : (
-                            <BookOpen className="w-4 h-4 text-purple-400" />
+                            <BookOpen className="w-4 h-4 text-[#60A5FA]" />
                           )}
                         </div>
                         <div>
                           <div>{item.title}</div>
                           {item.titleUrdu && (
-                            <div className="font-urdu text-[11px] text-amber-300/80">{item.titleUrdu}</div>
+                            <div className="font-urdu text-[11px] text-[#FACC15]">{item.titleUrdu}</div>
                           )}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-white text-sm">
-                        {item.score} <span className="text-[10px] font-normal text-slate-400">WPM</span>
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#F8FAFC] text-sm">
+                        {item.score} <span className="text-[10px] font-normal text-[#94A3B8]">WPM</span>
                         {item.netScore !== undefined && item.netScore !== item.score && (
-                          <span className="text-[10px] text-slate-500 ml-1">({item.netScore} net)</span>
+                          <span className="text-[10px] text-[#64748B] ml-1">({item.netScore} net)</span>
                         )}
                       </td>
                       <td className="py-3.5 px-4 font-bold">
-                        <span className={item.percentage >= 85 ? 'text-emerald-400' : item.percentage >= 70 ? 'text-amber-400' : 'text-rose-400'}>
+                        <span className={item.percentage >= 85 ? 'text-emerald-400' : item.percentage >= 70 ? 'text-[#FACC15]' : 'text-rose-400'}>
                           {item.percentage}%
                         </span>
                       </td>
@@ -425,7 +426,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                               ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                               : isFailed
                               ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
-                              : 'bg-blue-500/10 text-blue-400 border-blue-500/30'
+                              : 'bg-[#2563EB]/15 text-[#60A5FA] border-[#2563EB]/30'
                           }`}
                         >
                           {isPassed ? (
@@ -438,9 +439,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
                           <span>{item.status}</span>
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                      <td className="py-3.5 px-4 text-[#94A3B8] text-[11px]">
                         <div>{item.date || (item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '—')}</div>
-                        {item.time && <div className="text-[10px] text-slate-500">{item.time}</div>}
+                        {item.time && <div className="text-[10px] text-[#64748B]">{item.time}</div>}
                       </td>
                     </tr>
                   );
@@ -450,8 +451,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         ) : localSessions.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/70 text-[11px] uppercase tracking-wider text-slate-400 border-b border-slate-800">
+            <table className="w-full text-left text-xs text-[#94A3B8]">
+              <thead className="bg-[#070B14] text-[11px] uppercase tracking-wider text-[#94A3B8] border-b border-white/[0.06]">
                 <tr>
                   <th scope="col" className="py-3 px-4 rounded-l-xl">Test / Activity</th>
                   <th scope="col" className="py-3 px-4">Score (WPM)</th>
@@ -460,26 +461,26 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <th scope="col" className="py-3 px-4 rounded-r-xl">Date & Time</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-white/[0.05]">
                 {localSessions.map((s) => (
-                  <tr key={s.id} className="hover:bg-slate-800/40 transition">
-                    <td className="py-3.5 px-4 font-semibold text-white">
+                  <tr key={s.id} className="hover:bg-[#16233A]/50 transition">
+                    <td className="py-3.5 px-4 font-semibold text-[#F8FAFC]">
                       {s.lessonTitle || `Session (${s.mode})`}
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-bold text-white text-sm">
-                      {s.wpm} <span className="text-[10px] font-normal text-slate-400">WPM</span>
+                    <td className="py-3.5 px-4 font-mono font-bold text-[#F8FAFC] text-sm">
+                      {s.wpm} <span className="text-[10px] font-normal text-[#94A3B8]">WPM</span>
                     </td>
                     <td className="py-3.5 px-4 font-bold text-emerald-400">
                       {s.accuracy}%
                     </td>
                     <td className="py-3.5 px-4">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
-                        s.accuracy >= 85 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                        s.accuracy >= 85 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-[#FACC15]/15 text-[#FACC15] border-[#FACC15]/30'
                       }`}>
                         {s.accuracy >= 85 ? 'Passed' : 'Completed'}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                    <td className="py-3.5 px-4 text-[#94A3B8] text-[11px]">
                       {new Date(s.createdAt).toLocaleDateString()}
                     </td>
                   </tr>
@@ -488,17 +489,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </table>
           </div>
         ) : (
-          <div className="text-center py-12 px-4 rounded-2xl bg-slate-950/50 border border-dashed border-slate-800">
-            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto mb-3">
+          <div className="text-center py-12 px-4 rounded-2xl neu-inset">
+            <div className="w-12 h-12 rounded-2xl bg-[#2563EB]/15 text-[#38BDF8] border border-[#2563EB]/30 flex items-center justify-center mx-auto mb-3 shadow-inner">
               <Timer className="w-6 h-6" />
             </div>
-            <h3 className="text-sm font-bold text-white">No Test History Recorded Yet</h3>
-            <p className="text-xs text-slate-400 max-w-md mx-auto mt-1 mb-4">
+            <h3 className="text-sm font-bold text-[#F8FAFC]">No Test History Recorded Yet</h3>
+            <p className="text-xs text-[#94A3B8] max-w-md mx-auto mt-1 mb-4">
               Your test history is strictly isolated to your account. Take your first timed speed test or lesson now to generate your personal score and record!
             </p>
             <button
               onClick={() => onNavigate('test')}
-              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-xl text-xs transition inline-flex items-center gap-2 cursor-pointer shadow-lg shadow-blue-600/30"
+              className="neu-btn-primary px-5 py-2.5 rounded-xl text-xs inline-flex items-center gap-2 cursor-pointer font-bold"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
               <span>Take First Typing Test</span>
@@ -511,61 +512,61 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <button
           onClick={() => onNavigate('lessons')}
-          className="p-5 bg-gradient-to-b from-slate-900/90 to-slate-900/50 hover:bg-slate-800/90 border border-slate-800 hover:border-blue-500/50 rounded-3xl text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 group cursor-pointer"
+          className="neu-card-interactive p-5 rounded-3xl text-left group cursor-pointer"
         >
-          <div className="w-11 h-11 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-3 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300 shadow-sm">
+          <div className="w-11 h-11 rounded-2xl bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center text-[#38BDF8] mb-3 group-hover:scale-110 transition-all duration-300 shadow-sm">
             <BookOpen className="w-5 h-5" />
           </div>
-          <h4 className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Full Curriculum</h4>
-          <p className="text-[11px] text-slate-400 mt-1">25 progressive lessons from Beginner to Master</p>
+          <h4 className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors">Full Curriculum</h4>
+          <p className="text-[11px] text-[#94A3B8] mt-1">25 progressive lessons from Beginner to Master</p>
         </button>
 
         <button
           onClick={() => onNavigate('test')}
-          className="p-5 bg-gradient-to-b from-slate-900/90 to-slate-900/50 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 rounded-3xl text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/10 group cursor-pointer"
+          className="neu-card-interactive p-5 rounded-3xl text-left group cursor-pointer"
         >
-          <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-3 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all duration-300 shadow-sm">
+          <div className="w-11 h-11 rounded-2xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 flex items-center justify-center text-[#38BDF8] mb-3 group-hover:scale-110 transition-all duration-300 shadow-sm">
             <Timer className="w-5 h-5" />
           </div>
-          <h4 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Timed Typing Test</h4>
-          <p className="text-[11px] text-slate-400 mt-1">1, 2, 5, or 10-minute standardized speed trials</p>
+          <h4 className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors">Timed Typing Test</h4>
+          <p className="text-[11px] text-[#94A3B8] mt-1">1, 2, 5, or 10-minute standardized speed trials</p>
         </button>
 
         <button
           onClick={() => onNavigate('games')}
-          className="p-5 bg-gradient-to-b from-slate-900/90 to-slate-900/50 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/50 rounded-3xl text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/10 group cursor-pointer"
+          className="neu-card-interactive p-5 rounded-3xl text-left group cursor-pointer"
         >
-          <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-3 group-hover:scale-110 group-hover:bg-amber-500/20 transition-all duration-300 shadow-sm">
+          <div className="w-11 h-11 rounded-2xl bg-[#FACC15]/15 border border-[#FACC15]/30 flex items-center justify-center text-[#FACC15] mb-3 group-hover:scale-110 transition-all duration-300 shadow-sm">
             <Gamepad2 className="w-5 h-5" />
           </div>
-          <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">Arcade Games</h4>
-          <p className="text-[11px] text-slate-400 mt-1">Falling Words, Urdu Bubbles, and Speed Race</p>
+          <h4 className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#FACC15] transition-colors">Arcade Games</h4>
+          <p className="text-[11px] text-[#94A3B8] mt-1">Falling Words, Urdu Bubbles, and Speed Race</p>
         </button>
 
         <button
           onClick={() => onNavigate('learn')}
-          className="p-5 bg-gradient-to-b from-slate-900/90 to-slate-900/50 hover:bg-slate-800/90 border border-slate-800 hover:border-purple-500/50 rounded-3xl text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10 group cursor-pointer"
+          className="neu-card-interactive p-5 rounded-3xl text-left group cursor-pointer"
         >
-          <div className="w-11 h-11 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-110 group-hover:bg-purple-500/20 transition-all duration-300 shadow-sm">
+          <div className="w-11 h-11 rounded-2xl bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center text-[#60A5FA] mb-3 group-hover:scale-110 transition-all duration-300 shadow-sm">
             <Sparkles className="w-5 h-5" />
           </div>
-          <h4 className="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">Learn the Keys</h4>
-          <p className="text-[11px] text-slate-400 mt-1">Single-letter interactive flashcards & hand guide</p>
+          <h4 className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#60A5FA] transition-colors">Learn the Keys</h4>
+          <p className="text-[11px] text-[#94A3B8] mt-1">Single-letter interactive flashcards & hand guide</p>
         </button>
       </div>
 
       {/* Weak Keys & Quick Diagnostics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Weak Keys Callout */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6">
+        <div className="neu-card rounded-3xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-400" />
-              <h3 className="text-sm font-bold text-white">Detected Weak Keys</h3>
+              <AlertTriangle className="w-4 h-4 text-[#FACC15]" />
+              <h3 className="text-sm font-bold text-[#F8FAFC]">Detected Weak Keys</h3>
             </div>
             <button
               onClick={() => onNavigate('analytics')}
-              className="text-xs text-blue-400 hover:text-blue-300 font-semibold"
+              className="text-xs text-[#38BDF8] hover:underline font-semibold cursor-pointer"
             >
               View Diagnostics
             </button>
@@ -576,12 +577,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {weakKeys.map(w => (
                 <div
                   key={w.urduChar}
-                  className="bg-slate-950 p-3 rounded-2xl border border-slate-800/90 flex flex-col items-center"
+                  className="neu-inset p-3 rounded-2xl flex flex-col items-center"
                 >
-                  <span className="font-urdu text-2xl font-bold text-amber-300">
+                  <span className="font-urdu text-2xl font-bold text-[#FACC15]">
                     {w.urduChar}
                   </span>
-                  <span className="text-[11px] font-mono text-slate-400 mt-1">
+                  <span className="text-[11px] font-mono text-[#94A3B8] mt-1">
                     Key: {w.key.toUpperCase()}
                   </span>
                   <span className="text-xs font-black text-rose-400 mt-0.5">
@@ -591,19 +592,19 @@ export const Dashboard: React.FC<DashboardProps> = ({
               ))}
             </div>
           ) : (
-            <div className="text-center py-6 text-xs text-slate-500">
+            <div className="text-center py-6 text-xs text-[#64748B]">
               No weak keys detected yet. Keep typing to populate telemetry.
             </div>
           )}
         </div>
 
         {/* User Account Summary Card */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between">
+        <div className="neu-card rounded-3xl p-6 flex flex-col justify-between shadow-xl">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-cyan-400" />
-                <h3 className="text-sm font-bold text-white">Authenticated Profile</h3>
+                <User className="w-4 h-4 text-[#38BDF8]" />
+                <h3 className="text-sm font-bold text-[#F8FAFC]">Authenticated Profile</h3>
               </div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
                 Connected
@@ -611,32 +612,32 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-800/60">
-                <span className="text-slate-400">Account Name:</span>
-                <strong className="text-white font-semibold">{user.name || 'Student'}</strong>
+              <div className="flex items-center justify-between py-1.5 border-b border-white/[0.06]">
+                <span className="text-[#94A3B8]">Account Name:</span>
+                <strong className="text-[#F8FAFC] font-semibold">{user.name || 'Student'}</strong>
               </div>
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-800/60">
-                <span className="text-slate-400">Account Email:</span>
-                <span className="text-slate-300 font-mono text-[11px]">{user.email || '—'}</span>
+              <div className="flex items-center justify-between py-1.5 border-b border-white/[0.06]">
+                <span className="text-[#94A3B8]">Account Email:</span>
+                <span className="text-[#94A3B8] font-mono text-[11px]">{user.email || '—'}</span>
               </div>
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-800/60">
-                <span className="text-slate-400">Total Activities:</span>
-                <span className="text-blue-400 font-bold">{totalTests}</span>
+              <div className="flex items-center justify-between py-1.5 border-b border-white/[0.06]">
+                <span className="text-[#94A3B8]">Total Activities:</span>
+                <span className="text-[#38BDF8] font-bold">{totalTests}</span>
               </div>
               <div className="flex items-center justify-between py-1.5">
-                <span className="text-slate-400">Overall Tests Passed:</span>
+                <span className="text-[#94A3B8]">Overall Tests Passed:</span>
                 <span className="text-emerald-400 font-bold">{passedCount}</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-            <span className="text-[11px] text-slate-500">
+          <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+            <span className="text-[11px] text-[#64748B]">
               User ID: {user.id ? `${user.id.slice(0, 8)}...` : 'Active'}
             </span>
             <button
               onClick={() => onNavigate('analytics')}
-              className="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1"
+              className="text-xs text-[#38BDF8] hover:underline font-semibold flex items-center gap-1 cursor-pointer"
             >
               <span>Full Analytics</span>
               <ArrowRight className="w-3.5 h-3.5" />

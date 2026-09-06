@@ -3,6 +3,8 @@ export type DifficultyLevel = 'Beginner' | 'Foundation' | 'Intermediate' | 'Adva
 export interface UserProfile {
   id: string;
   name: string;
+  email?: string;
+  joinedAt?: string;
   avatar: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
   targetWpm: number;

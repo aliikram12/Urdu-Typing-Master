@@ -141,11 +141,11 @@ export default function App() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center relative overflow-hidden">
-        {/* Dynamic Background Elements */}
+      <div className="min-h-screen bg-[#0B1120] flex items-center justify-center relative overflow-hidden">
+        {/* Dynamic Tactile Depth Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px]" />
-          <div className="absolute top-[60%] -right-[10%] w-[60%] h-[60%] rounded-full bg-purple-600/20 blur-[120px]" />
+          <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[#2563EB]/10 blur-[130px]" />
+          <div className="absolute top-[60%] -right-[10%] w-[60%] h-[60%] rounded-full bg-[#38BDF8]/5 blur-[130px]" />
         </div>
         
         <div className="z-10 w-full px-4 flex justify-center">
@@ -171,7 +171,7 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white ${
+      className={`min-h-screen bg-[#0B1120] text-[#F8FAFC] flex flex-col font-sans selection:bg-[#2563EB] selection:text-white ${
         settings.fontFamily === 'Noto Sans Arabic' ? 'font-arabic' : 'font-urdu'
       }`}
     >
@@ -274,31 +274,31 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
+      {/* Tactile Skeuomorphic Footer */}
+      <footer className="border-t border-white/[0.06] bg-[#0E1626] py-6 text-center text-xs text-[#94A3B8] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-400">UrduTyper</span>
-            <span>•</span>
-            <span className="font-urdu text-sm text-slate-400">اردو فونیٹک ٹائپنگ ٹیوٹر</span>
+            <span className="font-bold text-[#F8FAFC]">UrduTyper</span>
+            <span className="text-[#64748B]">•</span>
+            <span className="font-urdu text-sm text-[#38BDF8]">اردو فونیٹک ٹائپنگ ٹیوٹر</span>
           </div>
 
           <div className="flex items-center gap-4 text-[11px]">
             <button
               onClick={() => setIsReferenceOpen(true)}
-              className="hover:text-slate-300 transition"
+              className="hover:text-[#38BDF8] transition cursor-pointer"
             >
               Phonetic Keymap
             </button>
-            <span>•</span>
+            <span className="text-[#64748B]">•</span>
             <button
               onClick={() => setIsSettingsOpen(true)}
-              className="hover:text-slate-300 transition"
+              className="hover:text-[#38BDF8] transition cursor-pointer"
             >
               Preferences
             </button>
-            <span>•</span>
-            <span>CRULP / NLA Standard</span>
+            <span className="text-[#64748B]">•</span>
+            <span className="text-[#64748B]">CRULP / NLA Standard</span>
           </div>
         </div>
       </footer>

@@ -115,29 +115,29 @@ export const SpeedRace: React.FC<SpeedRaceProps> = ({
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-4 select-none">
+    <div className="max-w-5xl mx-auto px-4 py-6 select-none">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800">
+      <div className="neu-card rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToGames}
-            className="p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition"
+            className="neu-btn-secondary p-2.5 rounded-xl text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-xl font-black text-white flex items-center gap-2">
+            <h1 className="text-xl font-black text-[#F8FAFC] flex items-center gap-2">
               <span>Speed Race</span>
-              <span className="font-urdu text-base text-amber-400">(رفتار کی ریس)</span>
+              <span className="font-urdu text-base text-[#FACC15]">(رفتار کی ریس)</span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#94A3B8]">
               Outpace the CPU competitor by typing the Urdu text quickly and accurately!
             </p>
           </div>
         </div>
 
         {/* CPU Difficulty Picker */}
-        <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1.5 rounded-2xl">
+        <div className="flex items-center gap-1.5 neu-segmented-track p-1.5 rounded-2xl">
           {(['Novice', 'Pro', 'Master'] as CpuDifficulty[]).map(lvl => (
             <button
               key={lvl}
@@ -148,8 +148,8 @@ export const SpeedRace: React.FC<SpeedRaceProps> = ({
               }}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                 difficulty === lvl
-                  ? 'bg-amber-600 text-white shadow'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'neu-btn-accent text-[#0B1120]'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               {lvl} ({CPU_PACING[lvl]} WPM)
@@ -159,29 +159,31 @@ export const SpeedRace: React.FC<SpeedRaceProps> = ({
       </div>
 
       {/* Visual Race Track */}
-      <div className="my-4 p-5 bg-slate-950/90 border border-slate-800 rounded-3xl shadow-2xl relative overflow-hidden">
+      <div className="my-4 p-6 neu-inset rounded-3xl relative overflow-hidden bg-[#080D18]">
         {/* Track lane 1: PLAYER */}
-        <div className="mb-4">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1.5 px-1">
-            <div className="flex items-center gap-2 font-bold text-white">
-              <span className="text-blue-400">YOU (Player)</span>
-              <span className="text-[11px] text-slate-500">• {stats.wpm} WPM</span>
+        <div className="mb-6">
+          <div className="flex items-center justify-between text-xs text-[#94A3B8] mb-2 px-1">
+            <div className="flex items-center gap-2 font-bold text-[#F8FAFC]">
+              <span className="text-[#38BDF8] flex items-center gap-1">
+                <span>YOU (Player)</span>
+              </span>
+              <span className="text-[11px] text-[#64748B]">• {stats.wpm} WPM</span>
             </div>
-            <span className="font-bold text-blue-400">{Math.round(playerProgress)}%</span>
+            <span className="font-black text-[#38BDF8]">{Math.round(playerProgress)}%</span>
           </div>
 
-          <div className="relative w-full h-12 bg-slate-900 rounded-2xl border border-slate-800 flex items-center px-2">
+          <div className="relative w-full h-14 neu-card rounded-2xl flex items-center px-3 border border-slate-700/60">
             {/* Finish Line check */}
-            <div className="absolute right-3 top-0 bottom-0 w-3 bg-[repeating-linear-gradient(45deg,#fff,#fff_4px,#000_4px,#000_8px)] opacity-50 rounded-r-xl" />
+            <div className="absolute right-3 top-1 bottom-1 w-3 bg-[repeating-linear-gradient(45deg,#fff,#fff_4px,#0B1120_4px,#0B1120_8px)] opacity-60 rounded-r-xl" />
 
             <motion.div
-              animate={{ left: `calc(${Math.min(92, playerProgress)}%)` }}
+              animate={{ left: `calc(${Math.min(90, playerProgress)}%)` }}
               transition={{ ease: 'easeOut', duration: 0.15 }}
               className="absolute z-10 flex items-center gap-1 -translate-x-1"
             >
-              <div className="px-2 py-1 bg-blue-600 text-white font-black text-xs rounded-lg shadow-lg shadow-blue-600/40 flex items-center gap-1">
-                <span>🚗</span>
-                <span className="text-[10px] hidden sm:inline">YOU</span>
+              <div className="px-3 py-1.5 bg-[#2563EB] text-white font-black text-xs rounded-xl shadow-[0_4px_12px_rgba(37,99,235,0.6)] flex items-center gap-1.5 border-t border-white/20">
+                <span className="text-sm">🚗</span>
+                <span className="text-[10px] hidden sm:inline tracking-wider font-extrabold">YOU</span>
               </div>
             </motion.div>
           </div>
@@ -189,26 +191,26 @@ export const SpeedRace: React.FC<SpeedRaceProps> = ({
 
         {/* Track lane 2: CPU */}
         <div>
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1.5 px-1">
-            <div className="flex items-center gap-2 font-bold text-slate-300">
-              <span className="text-amber-400">CPU Opponent ({difficulty})</span>
-              <span className="text-[11px] text-slate-500">• {CPU_PACING[difficulty]} WPM Pace</span>
+          <div className="flex items-center justify-between text-xs text-[#94A3B8] mb-2 px-1">
+            <div className="flex items-center gap-2 font-bold text-[#94A3B8]">
+              <span className="text-[#FACC15]">CPU Opponent ({difficulty})</span>
+              <span className="text-[11px] text-[#64748B]">• {CPU_PACING[difficulty]} WPM Pace</span>
             </div>
-            <span className="font-bold text-amber-400">{Math.round(cpuProgress)}%</span>
+            <span className="font-black text-[#FACC15]">{Math.round(cpuProgress)}%</span>
           </div>
 
-          <div className="relative w-full h-12 bg-slate-900 rounded-2xl border border-slate-800 flex items-center px-2">
+          <div className="relative w-full h-14 neu-card rounded-2xl flex items-center px-3 border border-slate-700/60">
             {/* Finish Line */}
-            <div className="absolute right-3 top-0 bottom-0 w-3 bg-[repeating-linear-gradient(45deg,#fff,#fff_4px,#000_4px,#000_8px)] opacity-50 rounded-r-xl" />
+            <div className="absolute right-3 top-1 bottom-1 w-3 bg-[repeating-linear-gradient(45deg,#fff,#fff_4px,#0B1120_4px,#0B1120_8px)] opacity-60 rounded-r-xl" />
 
             <motion.div
-              animate={{ left: `calc(${Math.min(92, cpuProgress)}%)` }}
+              animate={{ left: `calc(${Math.min(90, cpuProgress)}%)` }}
               transition={{ ease: 'linear', duration: 0.1 }}
               className="absolute z-10 flex items-center gap-1 -translate-x-1"
             >
-              <div className="px-2 py-1 bg-amber-600 text-white font-black text-xs rounded-lg shadow-lg shadow-amber-600/40 flex items-center gap-1">
-                <span>🚙</span>
-                <span className="text-[10px] hidden sm:inline">CPU</span>
+              <div className="px-3 py-1.5 bg-[#FACC15] text-[#0B1120] font-black text-xs rounded-xl shadow-[0_4px_12px_rgba(250,204,21,0.5)] flex items-center gap-1.5 border-t border-white/30">
+                <span className="text-sm">🚙</span>
+                <span className="text-[10px] hidden sm:inline tracking-wider font-black">CPU</span>
               </div>
             </motion.div>
           </div>
@@ -216,101 +218,108 @@ export const SpeedRace: React.FC<SpeedRaceProps> = ({
       </div>
 
       {/* Target Urdu Text Display */}
-      <div className="my-3 p-6 bg-slate-900/90 border border-slate-800 rounded-3xl shadow-xl">
-        <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-          <span>Type fast to boost your speed:</span>
-          <div className="flex items-center gap-2">
-            <Gauge className="w-4 h-4 text-blue-400" />
-            <span className="font-bold text-white">{stats.wpm} WPM</span>
-            <span className="text-emerald-400 font-bold ml-2">{stats.accuracy}% Acc</span>
+      <div className="my-4 p-6 neu-card rounded-3xl">
+        <div className="flex items-center justify-between text-xs text-[#94A3B8] mb-3">
+          <span className="font-medium">Type continuously to boost your speed:</span>
+          <div className="flex items-center gap-3">
+            <div className="neu-badge-blue px-3 py-1 flex items-center gap-1.5">
+              <Gauge className="w-3.5 h-3.5 text-[#38BDF8]" />
+              <span className="font-black text-[#F8FAFC]">{stats.wpm} WPM</span>
+            </div>
+            <div className="neu-badge-cyan px-3 py-1 flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-[#38BDF8]" />
+              <span className="text-[#38BDF8] font-black">{stats.accuracy}% Acc</span>
+            </div>
           </div>
         </div>
 
-        <div
-          dir="rtl"
-          className="font-urdu text-2xl md:text-3xl leading-loose tracking-wide text-right selection:bg-transparent py-2"
-        >
-          {chars.map((item, idx) => {
-            let colorClass = 'text-slate-500';
-            let bgClass = '';
+        <div className="neu-inset p-5 rounded-2xl">
+          <div
+            dir="rtl"
+            className="font-urdu text-2xl md:text-3xl leading-loose tracking-wide text-right selection:bg-transparent py-2"
+          >
+            {chars.map((item, idx) => {
+              let colorClass = 'text-slate-500';
+              let bgClass = '';
 
-            if (item.status === 'correct') {
-              colorClass = 'text-emerald-400';
-            } else if (item.status === 'incorrect') {
-              colorClass = 'text-rose-400 underline';
-            } else if (item.status === 'current') {
-              colorClass = 'text-white font-extrabold';
-              bgClass = 'bg-blue-600/30 ring-2 ring-blue-500 rounded px-1 animate-pulse';
-            }
+              if (item.status === 'correct') {
+                colorClass = 'text-[#38BDF8]';
+              } else if (item.status === 'incorrect') {
+                colorClass = 'text-rose-400 underline decoration-rose-500';
+              } else if (item.status === 'current') {
+                colorClass = 'text-white font-extrabold';
+                bgClass = 'bg-[#2563EB]/40 ring-2 ring-[#38BDF8] rounded px-1.5 shadow-[0_0_12px_rgba(56,189,248,0.5)]';
+              }
 
-            return (
-              <span key={idx} className={`transition-colors duration-100 ${colorClass} ${bgClass}`}>
-                {item.char}
-              </span>
-            );
-          })}
+              return (
+                <span key={idx} className={`transition-colors duration-100 ${colorClass} ${bgClass}`}>
+                  {item.char}
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* Race Result Modal */}
       <AnimatePresence>
         {isRaceFinished && winner && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center"
+              className="neu-card-raised w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center border border-slate-700"
             >
               <div
-                className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg ${
+                className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg ${
                   winner === 'player'
-                    ? 'bg-amber-500/10 border border-amber-500/30 text-amber-400'
-                    : 'bg-slate-800 border border-slate-700 text-slate-400'
+                    ? 'bg-[#FACC15]/15 border border-[#FACC15]/40 text-[#FACC15]'
+                    : 'neu-inset text-slate-500'
                 }`}
               >
                 {winner === 'player' ? (
-                  <Trophy className="w-8 h-8 text-amber-400 animate-bounce" />
+                  <Trophy className="w-8 h-8 text-[#FACC15] animate-bounce" />
                 ) : (
                   <Flag className="w-8 h-8 text-slate-400" />
                 )}
               </div>
 
               <span
-                className={`text-xs font-bold uppercase tracking-wider ${
-                  winner === 'player' ? 'text-amber-400' : 'text-slate-400'
+                className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
+                  winner === 'player' ? 'neu-badge-yellow' : 'neu-badge-blue'
                 }`}
               >
-                {winner === 'player' ? 'Victory!' : 'Race Finished'}
+                {winner === 'player' ? 'Champion!' : 'Race Concluded'}
               </span>
-              <h2 className="text-2xl font-black text-white mt-1">
+              <h2 className="text-2xl font-black text-[#F8FAFC] mt-2">
                 {winner === 'player' ? 'You Won The Race!' : 'CPU Finished First'}
               </h2>
 
-              <div className="grid grid-cols-2 gap-3 my-4">
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                  <div className="text-[11px] text-slate-400">Your Speed</div>
-                  <div className="text-2xl font-black text-white">{stats.wpm} WPM</div>
+              <div className="grid grid-cols-2 gap-3 my-5">
+                <div className="neu-inset p-3.5 rounded-2xl">
+                  <div className="text-[11px] text-[#64748B] font-bold uppercase">Your Speed</div>
+                  <div className="text-2xl font-black text-[#F8FAFC] mt-0.5">{stats.wpm} WPM</div>
                 </div>
-                <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-                  <div className="text-[11px] text-slate-400">Accuracy</div>
-                  <div className="text-2xl font-black text-emerald-400">{stats.accuracy}%</div>
+                <div className="neu-inset p-3.5 rounded-2xl">
+                  <div className="text-[11px] text-[#64748B] font-bold uppercase">Accuracy</div>
+                  <div className="text-2xl font-black text-[#38BDF8] mt-0.5">{stats.accuracy}%</div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2.5">
                 <button
                   onClick={restartRace}
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition cursor-pointer"
+                  className="neu-btn-accent w-full py-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>Race Again</span>
                 </button>
                 <button
                   onClick={onBackToGames}
-                  className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition cursor-pointer"
+                  className="neu-btn-secondary w-full py-2.5 rounded-xl text-xs font-bold text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer"
                 >
-                  Change Game
+                  Return to Games Hub
                 </button>
               </div>
             </motion.div>

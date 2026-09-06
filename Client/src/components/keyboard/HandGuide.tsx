@@ -24,30 +24,30 @@ export const HandGuide: React.FC<HandGuideProps> = ({
   const isActive = (f: FingerType) => activeFinger === f;
 
   return (
-    <div className="w-full max-w-4xl mx-auto my-2 p-3 bg-slate-900/80 backdrop-blur rounded-2xl border border-slate-800 shadow-xl">
-      <div className="flex items-center justify-between px-2 mb-2">
+    <div className="w-full max-w-4xl mx-auto my-2 p-3.5 neu-card-raised rounded-3xl select-none">
+      <div className="flex items-center justify-between px-2 mb-2.5">
         <div className="flex items-center gap-2">
-          <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <span className="inline-block w-2 h-2 rounded-full bg-[#38BDF8] shadow-[0_0_8px_rgba(56,189,248,0.8)] animate-pulse"></span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#94A3B8]">
             Ergonomic Finger Position Guide
           </span>
         </div>
 
         {currentConfig && (
-          <div className="flex items-center gap-2 bg-slate-800/90 border border-slate-700/80 px-3 py-1 rounded-full text-xs">
+          <div className="flex items-center gap-2 bg-[#16233A] border border-white/[0.08] px-3 py-1 rounded-full text-xs shadow-sm">
             <span
-              className="w-2.5 h-2.5 rounded-full"
+              className="w-2.5 h-2.5 rounded-full shadow-sm"
               style={{ backgroundColor: currentConfig.color }}
             />
-            <span className="text-slate-300 font-medium">{currentConfig.name}</span>
-            <span className="font-urdu text-sm text-blue-400 font-bold">({currentConfig.urduName})</span>
+            <span className="text-[#F8FAFC] font-medium">{currentConfig.name}</span>
+            <span className="font-urdu text-sm text-[#38BDF8] font-bold">({currentConfig.urduName})</span>
             {expectedKeyPrompt && (
-              <span className="ml-2 font-mono bg-blue-600 text-white font-bold px-1.5 py-0.5 rounded text-[11px]">
+              <span className="ml-1.5 font-mono bg-[#2563EB] text-white font-bold px-1.5 py-0.5 rounded text-[11px] shadow-sm">
                 {expectedKeyPrompt.toUpperCase()}
               </span>
             )}
             {expectedChar && (
-              <span className="font-urdu font-bold text-amber-300 text-base">
+              <span className="font-urdu font-bold text-[#FACC15] text-base drop-shadow-[0_1px_4px_rgba(250,204,21,0.4)]">
                 {expectedChar}
               </span>
             )}
@@ -55,15 +55,15 @@ export const HandGuide: React.FC<HandGuideProps> = ({
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-6 items-end justify-center pt-2 pb-1">
+      <div className="grid grid-cols-2 gap-5 items-end justify-center pt-2 pb-1">
         {/* LEFT HAND */}
         <div className="flex flex-col items-center">
-          <div className="text-[11px] font-semibold text-slate-400 mb-1 flex items-center gap-1">
+          <div className="text-[11px] font-semibold text-[#94A3B8] mb-1.5 flex items-center gap-1">
             <span>Left Hand</span>
-            <span className="font-urdu text-xs text-slate-500">(بایاں ہاتھ)</span>
+            <span className="font-urdu text-xs text-[#64748B]">(بایاں ہاتھ)</span>
           </div>
           
-          <div className="relative flex items-end justify-center gap-2 h-28 px-4 py-2 bg-slate-950/60 rounded-xl border border-slate-800/80">
+          <div className="relative flex items-end justify-center gap-2 h-28 px-4 py-2.5 neu-inset rounded-2xl w-full max-w-sm">
             {/* Left Pinky */}
             <FingerItem
               name="Pinky"
@@ -119,12 +119,12 @@ export const HandGuide: React.FC<HandGuideProps> = ({
 
         {/* RIGHT HAND */}
         <div className="flex flex-col items-center">
-          <div className="text-[11px] font-semibold text-slate-400 mb-1 flex items-center gap-1">
+          <div className="text-[11px] font-semibold text-[#94A3B8] mb-1.5 flex items-center gap-1">
             <span>Right Hand</span>
-            <span className="font-urdu text-xs text-slate-500">(دایاں ہاتھ)</span>
+            <span className="font-urdu text-xs text-[#64748B]">(دایاں ہاتھ)</span>
           </div>
 
-          <div className="relative flex items-end justify-center gap-2 h-28 px-4 py-2 bg-slate-950/60 rounded-xl border border-slate-800/80">
+          <div className="relative flex items-end justify-center gap-2 h-28 px-4 py-2.5 neu-inset rounded-2xl w-full max-w-sm">
             {/* Right Thumb */}
             <FingerItem
               name="Thumb"

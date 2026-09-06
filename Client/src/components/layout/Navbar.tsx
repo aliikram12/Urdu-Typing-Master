@@ -75,7 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ] as const;
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 select-none shadow-xl">
+    <header className="sticky top-0 z-40 bg-[#111C31] border-b border-white/[0.07] select-none shadow-[0_10px_25px_-5px_rgba(0,0,0,0.6)]">
       {/* Primary Top Bar */}
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo */}
@@ -83,26 +83,26 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => onSelectTab('dashboard')}
           className="flex items-center gap-3 cursor-pointer group shrink-0"
         >
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-105 group-hover:shadow-blue-500/50 transition duration-300">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-b from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] flex items-center justify-center text-white shadow-[0_4px_12px_rgba(37,99,235,0.4),inset_0_1px_1px_rgba(255,255,255,0.35)] border border-white/20 group-hover:scale-105 transition-all duration-300">
             <span className="font-urdu font-black text-2xl leading-none -translate-y-0.5">
               ٹ
             </span>
           </div>
           <div>
             <div className="flex items-center gap-1.5 font-black text-white text-base tracking-tight">
-              <span className="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">UrduTyper</span>
-              <span className="font-urdu text-amber-400 font-bold text-lg leading-none">
+              <span className="text-[#F8FAFC]">UrduTyper</span>
+              <span className="font-urdu text-[#FACC15] font-bold text-lg leading-none drop-shadow-[0_2px_8px_rgba(250,204,21,0.3)]">
                 اردو
               </span>
             </div>
-            <div className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">
+            <div className="text-[10px] font-semibold text-[#94A3B8] tracking-wider uppercase">
               Phonetic Typing Tutor
             </div>
           </div>
         </div>
 
         {/* Primary Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800/90 shadow-inner">
+        <nav className="hidden lg:flex items-center gap-1 bg-[#070B14] p-1.5 rounded-2xl border border-white/[0.06] shadow-[inset_1px_2px_4px_rgba(0,0,0,0.6)]">
           {navItems.map(item => {
             const Icon = item.icon;
             const isActive = currentTab === item.id;
@@ -110,13 +110,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => onSelectTab(item.id as NavigationTab)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                    ? 'neu-btn-primary shadow-[0_4px_12px_rgba(37,99,235,0.45)]'
+                    : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#16233A]/60'
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#38BDF8]'}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -129,12 +129,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onToggleSound}
             title={settings.soundTheme === 'mute' ? 'Unmute Audio' : 'Mute Audio'}
-            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl neu-btn-secondary text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer"
           >
             {settings.soundTheme === 'mute' ? (
               <VolumeX className="w-4 h-4 text-rose-400" />
             ) : (
-              <Volume2 className="w-4 h-4 text-emerald-400" />
+              <Volume2 className="w-4 h-4 text-[#38BDF8]" />
             )}
           </button>
 
@@ -142,9 +142,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenReference}
             title="Urdu Keyboard Layout Cheat Sheet"
-            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer flex items-center gap-1.5 text-xs font-semibold shadow-sm"
+            className="p-2.5 rounded-xl neu-btn-secondary text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
           >
-            <Keyboard className="w-4 h-4 text-blue-400" />
+            <Keyboard className="w-4 h-4 text-[#38BDF8]" />
             <span className="hidden md:inline">Keymap</span>
           </button>
 
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenSettings}
             title="Settings & Preferences"
-            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl neu-btn-secondary text-[#94A3B8] hover:text-[#F8FAFC] transition cursor-pointer"
           >
             <Settings className="w-4 h-4" />
           </button>
@@ -161,15 +161,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Sub-Navbar: Centered Profile, Install App, & Logout Strip */}
       {user.name && (
-        <div className="border-t border-slate-800/70 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 py-2.5 px-4 shadow-md relative">
+        <div className="border-t border-white/[0.05] bg-[#0E1729] py-2 px-4 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] relative">
           <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs">
             {/* User Profile Info Card */}
-            <div className="flex items-center gap-2.5 bg-slate-950/80 border border-slate-800 px-3 py-1.5 rounded-2xl shadow-inner">
-              <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-sm shadow-md shadow-blue-500/20 border border-blue-400/30 shrink-0">
+            <div className="flex items-center gap-2.5 bg-[#111C31] border border-white/[0.07] px-3 py-1.5 rounded-xl shadow-[0_2px_6px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)]">
+              <div className="w-6 h-6 rounded-lg bg-gradient-to-b from-[#2563EB] to-[#1D4ED8] flex items-center justify-center text-xs shadow-sm border border-white/20 shrink-0">
                 {user.avatar || '👨‍💻'}
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-white tracking-wide">
+                <span className="font-bold text-[#F8FAFC] tracking-wide">
                   {user.name}
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
@@ -181,30 +181,30 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Email pill (if present) */}
             {user.email && (
-              <div className="hidden md:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-2xl text-slate-400 font-mono text-[11px]">
-                <Mail className="w-3.5 h-3.5 text-blue-400" />
+              <div className="hidden md:flex items-center gap-1.5 bg-[#070B14] border border-white/[0.06] px-3 py-1.5 rounded-xl text-[#94A3B8] font-mono text-[11px] shadow-[inset_1px_1px_3px_rgba(0,0,0,0.5)]">
+                <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
                 <span className="truncate max-w-[180px]">{user.email}</span>
               </div>
             )}
 
             {/* Level Pill */}
-            <div className="hidden sm:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-2xl text-purple-300 text-[11px] font-semibold">
-              <Award className="w-3.5 h-3.5 text-purple-400" />
+            <div className="hidden sm:flex items-center gap-1.5 bg-[#111C31] border border-white/[0.07] px-3 py-1.5 rounded-xl text-[#38BDF8] text-[11px] font-semibold shadow-sm">
+              <Award className="w-3.5 h-3.5 text-[#38BDF8]" />
               <span>{user.level || 'Beginner'}</span>
             </div>
 
-            {/* Daily Streak Counter */}
-            <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-2xl text-amber-400 font-bold text-[11px]">
-              <Flame className="w-3.5 h-3.5 fill-amber-400 animate-pulse" />
+            {/* Daily Streak Counter - Warm Yellow Accent */}
+            <div className="flex items-center gap-1.5 neu-badge-yellow px-3 py-1.5 rounded-xl font-bold text-[11px]">
+              <Flame className="w-3.5 h-3.5 fill-[#FACC15] animate-pulse" />
               <span>{user.streakDays || 0}d Streak</span>
             </div>
 
-            {/* PWA Install Desktop App Button (Native Monitor-Down-Arrow Icon) */}
+            {/* PWA Install Desktop App Button */}
             <div className="relative">
               {isInstalled ? (
                 <div
                   title="UrduTyper is installed as a standalone app"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold"
                 >
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Installed</span>
@@ -213,11 +213,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   onClick={handleInstallClick}
                   title="Install UrduTyper as Desktop/Mobile Application"
-                  className="group flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-blue-600/20 via-cyan-600/20 to-blue-600/10 hover:from-blue-600 hover:to-cyan-500 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-400 font-bold text-xs shadow-md hover:shadow-cyan-500/25 transition-all duration-200 cursor-pointer active:scale-95"
+                  className="neu-btn-secondary flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs cursor-pointer text-[#38BDF8]"
                 >
-                  {/* Native PWA Desktop Install Icon (Monitor with Downward Arrow) */}
                   <svg
-                    className="w-4 h-4 text-cyan-400 group-hover:text-white transition-colors"
+                    className="w-3.5 h-3.5 text-[#38BDF8]"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -236,12 +235,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Tooltip if browser hasn't prompted or user clicked */}
               {showInstallTip && (
-                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-slate-900 border border-blue-500/50 rounded-2xl text-[11px] text-slate-200 shadow-2xl z-50 animate-in fade-in zoom-in duration-200">
-                  <div className="font-bold text-blue-400 flex items-center gap-1.5 mb-1">
+                <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-64 p-3 bg-[#111C31] border border-[#38BDF8]/40 rounded-xl text-[11px] text-[#F8FAFC] shadow-2xl z-50 animate-in fade-in zoom-in duration-200">
+                  <div className="font-bold text-[#38BDF8] flex items-center gap-1.5 mb-1">
                     <span>Install via Browser:</span>
                   </div>
-                  <p className="text-slate-300 leading-relaxed">
-                    Click the <strong className="text-white">Install icon (🖥️↓)</strong> right inside your browser's address bar at the top right, or select <span className="text-cyan-300">Install UrduTyper</span> from the browser menu.
+                  <p className="text-[#94A3B8] leading-relaxed">
+                    Click the <strong className="text-white">Install icon (🖥️↓)</strong> right inside your browser's address bar at the top right, or select <span className="text-[#38BDF8]">Install UrduTyper</span> from the browser menu.
                   </p>
                 </div>
               )}
@@ -252,7 +251,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={onLogout}
                 title="Logout from your account"
-                className="group flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-rose-600/20 to-red-600/10 hover:from-rose-600 hover:to-red-600 text-rose-300 hover:text-white border border-rose-500/30 hover:border-rose-500 font-bold text-xs shadow-md hover:shadow-rose-600/30 transition-all duration-200 cursor-pointer active:scale-95"
+                className="group flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#1F1418] hover:bg-[#2E141D] text-rose-300 hover:text-white border border-rose-500/25 hover:border-rose-500/50 font-bold text-xs shadow-sm transition-all duration-150 cursor-pointer active:translate-y-0.5"
               >
                 <LogOut className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
                 <span>Logout</span>
@@ -263,7 +262,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       )}
 
       {/* Mobile Sub-Navigation Bar */}
-      <div className="lg:hidden flex items-center overflow-x-auto px-4 py-2 border-t border-slate-900 gap-1 scrollbar-none bg-slate-950/90">
+      <div className="lg:hidden flex items-center overflow-x-auto px-4 py-2 border-t border-white/[0.05] gap-1.5 scrollbar-none bg-[#0B1120]">
         {navItems.map(item => {
           const Icon = item.icon;
           const isActive = currentTab === item.id;
@@ -273,8 +272,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onSelectTab(item.id as NavigationTab)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition shrink-0 ${
                 isActive
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'neu-btn-primary'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC] bg-[#111C31]'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />

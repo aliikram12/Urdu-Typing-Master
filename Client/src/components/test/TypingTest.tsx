@@ -190,20 +190,20 @@ export const TypingTest: React.FC<TypingTestProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 py-4 select-none">
       {/* Test Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
             <Timer className="w-4 h-4" />
             <span>Official Urdu Speed Assessment</span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Timed Typing Test</h1>
-          <p className="text-xs text-slate-400">
+          <h1 className="text-2xl font-black text-[#F8FAFC] mt-1">Timed Typing Test</h1>
+          <p className="text-xs text-[#94A3B8]">
             Select duration and type the standardized Urdu passage with maximum speed & accuracy.
           </p>
         </div>
 
         {/* Duration Selectors */}
-        <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1.5 rounded-2xl">
+        <div className="flex items-center gap-1.5 bg-[#070B14] border border-white/[0.06] p-1.5 rounded-2xl shadow-inner">
           {DURATIONS.map(d => (
             <button
               key={d.seconds}
@@ -215,8 +215,8 @@ export const TypingTest: React.FC<TypingTestProps> = ({
               }}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                 selectedDuration === d.seconds
-                  ? 'bg-blue-600 text-white shadow'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'neu-btn-primary text-white shadow-sm'
+                  : 'text-[#94A3B8] hover:text-[#F8FAFC]'
               }`}
             >
               {d.label}
@@ -232,19 +232,19 @@ export const TypingTest: React.FC<TypingTestProps> = ({
           className={`p-3 rounded-2xl border flex items-center gap-3 transition ${
             remainingSeconds <= 10 && isTestActive
               ? 'bg-rose-950/40 border-rose-600/60 animate-pulse'
-              : 'bg-slate-900/90 border-slate-800'
+              : 'neu-card'
           }`}
         >
-          <div className="p-2.5 bg-blue-500/10 text-blue-400 rounded-xl">
-            <Timer className="w-6 h-6" />
+          <div className="p-2.5 bg-[#2563EB]/15 text-[#38BDF8] border border-[#2563EB]/30 rounded-xl shadow-sm">
+            <Timer className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">
               Time Remaining
             </div>
             <div
               className={`text-2xl font-black ${
-                remainingSeconds <= 10 && isTestActive ? 'text-rose-400' : 'text-white'
+                remainingSeconds <= 10 && isTestActive ? 'text-rose-400' : 'text-[#F8FAFC]'
               }`}
             >
               {formatTimer(remainingSeconds)}
@@ -253,42 +253,42 @@ export const TypingTest: React.FC<TypingTestProps> = ({
         </div>
 
         {/* Speed WPM */}
-        <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-xl">
-            <Gauge className="w-6 h-6" />
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2.5 bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30 rounded-xl shadow-sm">
+            <Gauge className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">
               Gross Speed
             </div>
-            <div className="text-2xl font-black text-white">
-              {stats.wpm} <span className="text-xs font-normal text-slate-400">WPM</span>
+            <div className="text-2xl font-black text-[#F8FAFC]">
+              {stats.wpm} <span className="text-xs font-normal text-[#94A3B8]">WPM</span>
             </div>
           </div>
         </div>
 
         {/* Accuracy */}
-        <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl flex items-center gap-3">
-          <div className="p-2.5 bg-cyan-500/10 text-cyan-400 rounded-xl">
-            <Target className="w-6 h-6" />
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2.5 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 rounded-xl shadow-sm">
+            <Target className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">
               Accuracy
             </div>
-            <div className="text-2xl font-black text-cyan-400">
+            <div className="text-2xl font-black text-emerald-400">
               {stats.accuracy}%
             </div>
           </div>
         </div>
 
         {/* Errors */}
-        <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl flex items-center gap-3">
-          <div className="p-2.5 bg-rose-500/10 text-rose-400 rounded-xl">
-            <AlertCircle className="w-6 h-6" />
+        <div className="neu-card p-3 rounded-2xl flex items-center gap-3">
+          <div className="p-2.5 bg-rose-500/15 text-rose-400 border border-rose-500/30 rounded-xl shadow-sm">
+            <AlertCircle className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+            <div className="text-[11px] font-medium text-[#94A3B8] uppercase tracking-wider">
               Errors
             </div>
             <div className="text-2xl font-black text-rose-400">
@@ -299,48 +299,48 @@ export const TypingTest: React.FC<TypingTestProps> = ({
       </div>
 
       {/* Target Urdu Passage Container */}
-      <div className="my-2 p-6 md:p-8 bg-slate-900/90 border border-slate-800 rounded-3xl shadow-2xl relative">
-        <div className="flex items-center justify-between text-xs text-slate-400 mb-3 border-b border-slate-800/80 pb-2">
-          <span className="font-semibold text-slate-300">
+      <div className="my-2 p-6 md:p-8 neu-card-raised rounded-3xl shadow-2xl relative">
+        <div className="flex items-center justify-between text-xs text-[#94A3B8] mb-3 border-b border-white/[0.06] pb-2.5">
+          <span className="font-semibold text-[#F8FAFC]">
             Passage: {passage.title}
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               onClick={() =>
                 setSelectedPassageIndex(
                   (selectedPassageIndex + 1) % PASSAGES_FOR_TESTS.length
                 )
               }
-              className="text-xs text-blue-400 hover:text-blue-300 underline cursor-pointer"
+              className="text-xs text-[#38BDF8] hover:underline cursor-pointer font-semibold"
             >
               Change Passage
             </button>
             <button
               onClick={() => setShowKeyboard(!showKeyboard)}
-              className="ml-3 p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white flex items-center gap-1 text-[11px]"
+              className="neu-btn-secondary px-2.5 py-1 rounded-lg text-[#F8FAFC] flex items-center gap-1.5 text-[11px] cursor-pointer"
             >
-              <Keyboard className="w-3.5 h-3.5" />
+              <Keyboard className="w-3.5 h-3.5 text-[#38BDF8]" />
               <span>Keyboard</span>
             </button>
           </div>
         </div>
 
-        {/* RTL Passage Display */}
+        {/* RTL Passage Display in Deep Inset Well */}
         <div
           dir="rtl"
-          className="font-urdu text-2xl md:text-3xl leading-loose tracking-wide text-right selection:bg-transparent py-4 min-h-[160px]"
+          className="neu-inset rounded-2xl p-4 font-urdu text-2xl md:text-3xl leading-loose tracking-wide text-right selection:bg-transparent min-h-[160px]"
         >
           {chars.map((item, idx) => {
-            let colorClass = 'text-slate-500';
+            let colorClass = 'text-[#64748B]';
             let bgClass = '';
 
             if (item.status === 'correct') {
-              colorClass = 'text-emerald-400';
+              colorClass = 'text-[#38BDF8]';
             } else if (item.status === 'incorrect') {
               colorClass = 'text-rose-400 underline decoration-rose-500 decoration-wavy decoration-2';
             } else if (item.status === 'current') {
-              colorClass = 'text-white font-extrabold';
-              bgClass = 'bg-blue-600/30 ring-2 ring-blue-500 rounded px-1 animate-pulse';
+              colorClass = 'text-[#F8FAFC] font-extrabold';
+              bgClass = 'bg-[#2563EB]/40 ring-2 ring-[#38BDF8] rounded-md px-1.5 py-0.5 shadow-[0_0_12px_rgba(56,189,248,0.5)] animate-pulse';
             }
 
             return (
@@ -355,10 +355,10 @@ export const TypingTest: React.FC<TypingTestProps> = ({
         </div>
 
         {!isTestActive && stats.totalKeypresses === 0 && (
-          <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center p-4">
-            <Sparkles className="w-8 h-8 text-blue-400 animate-bounce mb-2" />
-            <h3 className="text-xl font-bold text-white">Ready to begin?</h3>
-            <p className="text-xs text-slate-300 mt-1">
+          <div className="absolute inset-0 bg-[#0B1120]/80 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center p-4">
+            <Sparkles className="w-8 h-8 text-[#FACC15] animate-bounce mb-2" />
+            <h3 className="text-xl font-bold text-[#F8FAFC]">Ready to begin?</h3>
+            <p className="text-xs text-[#94A3B8] mt-1">
               Start typing on your keyboard to trigger the {selectedDuration / 60}-minute timer!
             </p>
           </div>
@@ -380,41 +380,41 @@ export const TypingTest: React.FC<TypingTestProps> = ({
       {/* Test Results Modal */}
       <AnimatePresence>
         {showResultModal && testResult && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B1120]/85 backdrop-blur-md">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-2xl text-center relative overflow-hidden"
+              className="neu-card-raised w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-center relative overflow-hidden"
             >
-              <div className="w-16 h-16 bg-blue-500/10 border border-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 text-blue-400 shadow-lg">
-                <Trophy className="w-8 h-8 text-amber-400 animate-bounce" />
+              <div className="w-16 h-16 bg-[#FACC15]/15 border border-[#FACC15]/30 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                <Trophy className="w-8 h-8 text-[#FACC15] animate-bounce" />
               </div>
 
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                 Test Completed
               </span>
-              <h2 className="text-3xl font-black text-white mt-1">Your Typing Score</h2>
+              <h2 className="text-3xl font-black text-[#F8FAFC] mt-1">Your Typing Score</h2>
 
               {testResult.isNewBest && (
-                <div className="inline-block my-2 px-3 py-1 bg-amber-500/20 border border-amber-500/40 rounded-full text-amber-300 font-semibold text-xs animate-pulse">
+                <div className="inline-block my-2 px-3 py-1 neu-badge-yellow rounded-full font-bold text-xs animate-pulse">
                   🌟 New Personal Best WPM Record!
                 </div>
               )}
 
               {/* Main WPM and Accuracy Callout */}
-              <div className="flex items-center justify-center gap-6 my-4 py-4 bg-slate-950/80 rounded-2xl border border-slate-800">
+              <div className="flex items-center justify-center gap-6 my-4 py-4 neu-inset rounded-2xl">
                 <div>
-                  <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <div className="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">
                     Gross WPM
                   </div>
-                  <div className="text-4xl font-black text-white">
+                  <div className="text-4xl font-black text-[#F8FAFC]">
                     {testResult.wpm}
                   </div>
                 </div>
-                <div className="w-px h-12 bg-slate-800" />
+                <div className="w-px h-12 bg-white/[0.08]" />
                 <div>
-                  <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <div className="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">
                     Accuracy
                   </div>
                   <div className="text-4xl font-black text-emerald-400">
@@ -424,34 +424,34 @@ export const TypingTest: React.FC<TypingTestProps> = ({
               </div>
 
               {/* Detailed Breakdown */}
-              <div className="grid grid-cols-3 gap-2 mb-4 text-xs">
-                <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
-                  <div className="text-slate-400">Correct Chars</div>
-                  <div className="text-lg font-bold text-white mt-0.5">
+              <div className="grid grid-cols-3 gap-2.5 mb-4 text-xs">
+                <div className="neu-inset p-3 rounded-xl">
+                  <div className="text-[#94A3B8]">Correct Chars</div>
+                  <div className="text-lg font-bold text-[#F8FAFC] mt-0.5">
                     {testResult.correctChars}
                   </div>
                 </div>
-                <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
-                  <div className="text-slate-400">Errors</div>
+                <div className="neu-inset p-3 rounded-xl">
+                  <div className="text-[#94A3B8]">Errors</div>
                   <div className="text-lg font-bold text-rose-400 mt-0.5">
                     {testResult.errors}
                   </div>
                 </div>
-                <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
-                  <div className="text-slate-400">Net WPM</div>
-                  <div className="text-lg font-bold text-cyan-400 mt-0.5">
+                <div className="neu-inset p-3 rounded-xl">
+                  <div className="text-[#94A3B8]">Net WPM</div>
+                  <div className="text-lg font-bold text-[#38BDF8] mt-0.5">
                     {testResult.netWpm}
                   </div>
                 </div>
               </div>
 
               {/* Comparison Callout */}
-              <div className="p-3 bg-blue-950/30 border border-blue-800/40 rounded-xl text-xs text-slate-300 flex items-center justify-between mb-4">
+              <div className="p-3 bg-[#16233A] border border-white/[0.08] rounded-xl text-xs text-[#94A3B8] flex items-center justify-between mb-4 shadow-sm">
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-blue-400" />
-                  <span>Historical Average: <strong className="text-white">{testResult.userAvgWpm} WPM</strong></span>
+                  <TrendingUp className="w-4 h-4 text-[#38BDF8]" />
+                  <span>Historical Average: <strong className="text-[#F8FAFC]">{testResult.userAvgWpm} WPM</strong></span>
                 </div>
-                <span className={`font-bold ${testResult.wpm >= testResult.userAvgWpm ? 'text-emerald-400' : 'text-amber-400'}`}>
+                <span className={`font-bold ${testResult.wpm >= testResult.userAvgWpm ? 'text-emerald-400' : 'text-[#FACC15]'}`}>
                   {testResult.wpm >= testResult.userAvgWpm ? `+${testResult.wpm - testResult.userAvgWpm} WPM Faster` : `${testResult.userAvgWpm - testResult.wpm} WPM under`}
                 </span>
               </div>
@@ -460,14 +460,14 @@ export const TypingTest: React.FC<TypingTestProps> = ({
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={restartTest}
-                  className="py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition cursor-pointer"
+                  className="neu-btn-primary py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>Take Another Test</span>
                 </button>
                 <button
                   onClick={onBackToDashboard}
-                  className="py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs transition cursor-pointer"
+                  className="neu-btn-secondary py-3 rounded-xl text-xs font-semibold transition cursor-pointer text-[#F8FAFC]"
                 >
                   Back to Dashboard
                 </button>
