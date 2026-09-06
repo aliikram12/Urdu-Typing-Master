@@ -20,13 +20,18 @@ import { KeyboardReferenceModal } from './components/keyboard/KeyboardReferenceM
 import { SettingsModal } from './components/settings/SettingsModal';
 import { LESSONS } from './data/lessons';
 
+import { Login } from './components/auth/Login';
+import { Register } from './components/auth/Register';
+import { motion, AnimatePresence } from 'motion/react';
+import { api } from './core/api';
+
 export default function App() {
-  const [currentUser, setCurrentUser] = useState<UserProfile>(() =>
-    storage.getCurrentUser()
-  );
-  const [settings, setSettings] = useState<AppSettings>(() =>
-    storage.getSettings()
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [token, setToken] = useState<string | null>(localStorage.getItem('auth_token'));
+
+  const [currentUser, setCurrentUser] = useState<UserProfile>(() => storage.getCurrentUser());
+  const [settings, setSettings] = useState<AppSettings>(() => storage.getSettings());
   const [currentTab, setCurrentTab] = useState<NavigationTab>('dashboard');
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
 
@@ -34,20 +39,49 @@ export default function App() {
   const [isReferenceOpen, setIsReferenceOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
+  useEffect(() => {
+    if (token) {
+      // Fetch user data from backend
+      api.getUserData(token).then((data: any) => {
+        setIsAuthenticated(true);
+        if (data.profileData) setCurrentUser(data.profileData);
+        if (data.settingsData) setSettings(data.settingsData);
+      }).catch(() => {
+        localStorage.removeItem('auth_token');
+        setToken(null);
+        setIsAuthenticated(false);
+      });
+    }
+  }, [token]);
+
   // Initialize audio engine settings
   useEffect(() => {
     audioEngine.setTheme(settings.soundTheme);
     audioEngine.setVolume(settings.soundVolume);
   }, [settings.soundTheme, settings.soundVolume]);
 
-  const handleUpdateSettings = (newSettings: Partial<AppSettings>) => {
+  const handleUpdateSettings = async (newSettings: Partial<AppSettings>) => {
     const updated = storage.updateSettings(newSettings);
     setSettings({ ...updated });
+    if (token) {
+      try {
+        await api.updateSettings(token, updated);
+      } catch (e) {
+        console.error('Failed to sync settings');
+      }
+    }
   };
 
-  const handleUpdateUser = (newUserData: Partial<UserProfile>) => {
+  const handleUpdateUser = async (newUserData: Partial<UserProfile>) => {
     const updated = storage.updateUser(newUserData);
     setCurrentUser({ ...updated });
+    if (token) {
+      try {
+        await api.updateProfile(token, updated);
+      } catch (e) {
+        console.error('Failed to sync profile');
+      }
+    }
   };
 
   const handleResetAllData = () => {
@@ -81,6 +115,51 @@ export default function App() {
     }
   };
 
+  const handleAuthSuccess = (newToken: string, user: any) => {
+    localStorage.setItem('auth_token', newToken);
+    setToken(newToken);
+    setIsAuthenticated(true);
+    if (user.profileData) setCurrentUser(user.profileData);
+    if (user.settingsData) setSettings(user.settingsData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth_token');
+    setToken(null);
+    setIsAuthenticated(false);
+    storage.resetAllData();
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center relative overflow-hidden">
+        {/* Dynamic Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px]" />
+          <div className="absolute top-[60%] -right-[10%] w-[60%] h-[60%] rounded-full bg-purple-600/20 blur-[120px]" />
+        </div>
+        
+        <div className="z-10 w-full px-4 flex justify-center">
+          <AnimatePresence mode="wait">
+            {authMode === 'login' ? (
+              <Login
+                key="login"
+                onLoginSuccess={handleAuthSuccess}
+                onSwitchToRegister={() => setAuthMode('register')}
+              />
+            ) : (
+              <Register
+                key="register"
+                onRegisterSuccess={handleAuthSuccess}
+                onSwitchToLogin={() => setAuthMode('login')}
+              />
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white ${
@@ -100,6 +179,10 @@ export default function App() {
         onOpenReference={() => setIsReferenceOpen(true)}
         onToggleSound={handleToggleSound}
       />
+
+      <div className="flex justify-end px-4 py-2 bg-slate-900 border-b border-slate-800">
+         <button onClick={handleLogout} className="text-sm text-slate-400 hover:text-white transition">Logout</button>
+      </div>
 
       {/* Main View Router */}
       <main className="flex-1 pb-12">
