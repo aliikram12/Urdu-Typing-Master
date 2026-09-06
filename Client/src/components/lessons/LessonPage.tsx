@@ -4,6 +4,7 @@ import { useTypingEngine } from '../../hooks/useTypingEngine';
 import { VirtualKeyboard } from '../keyboard/VirtualKeyboard';
 import { HandGuide } from '../keyboard/HandGuide';
 import { storage } from '../../core/storage';
+import { api } from '../../core/api';
 import confetti from 'canvas-confetti';
 import {
   RotateCcw,
@@ -112,6 +113,23 @@ export const LessonPage: React.FC<LessonPageProps> = ({
           averageLatencyMs: lineStats.averageLatencyMs,
           createdAt: new Date().toISOString(),
         });
+
+        // Persist to MongoDB History collection
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+          api.saveHistory(token, {
+            activityType: 'lesson',
+            title: lesson.title,
+            titleUrdu: lesson.titleUrdu || '',
+            score: lineStats.wpm,
+            netScore: lineStats.netWpm,
+            total: lineStats.totalChars,
+            percentage: lineStats.accuracy,
+            errors: lineStats.errors,
+            durationSeconds: lineStats.durationSeconds,
+            status: lineStats.accuracy >= 85 ? 'Passed' : 'Completed',
+          }).catch(err => console.error('Failed to save lesson to database', err));
+        }
 
         setCompletedStats({
           wpm: lineStats.wpm,

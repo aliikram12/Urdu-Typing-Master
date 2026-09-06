@@ -129,3 +129,33 @@ export interface KeyboardKeyInfo {
   row: number; // 1 to 5
   width?: string; // CSS flex or width
 }
+
+export interface HistoryRecord {
+  _id?: string;
+  id?: string;
+  userId: string;
+  activityType: 'test' | 'lesson' | 'game' | 'practice';
+  title: string;
+  titleUrdu?: string;
+  score: number;
+  netScore?: number;
+  total?: number;
+  percentage: number;
+  errorCount?: number;
+  errors?: number;
+  status: 'Passed' | 'Failed' | 'Completed';
+  durationSeconds: number;
+  date: string;
+  time?: string;
+  createdAt?: string;
+}
+
+export interface HistoryStats {
+  totalTests: number;
+  avgWpm: number;
+  avgAccuracy: number;
+  passedTests: number;
+  failedTests: number;
+  totalPracticeSeconds: number;
+  latestActivity?: HistoryRecord | null;
+}

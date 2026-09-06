@@ -4,6 +4,7 @@ import { PASSAGES_FOR_TESTS } from '../../data/lessons';
 import { useTypingEngine } from '../../hooks/useTypingEngine';
 import { VirtualKeyboard } from '../keyboard/VirtualKeyboard';
 import { storage } from '../../core/storage';
+import { api } from '../../core/api';
 import confetti from 'canvas-confetti';
 import {
   Timer,
@@ -119,7 +120,7 @@ export const TypingTest: React.FC<TypingTestProps> = ({
     const prevBestWpm = Math.max(0, ...sessions.map(s => s.wpm));
     const isNewBest = finalGross > prevBestWpm && finalGross > 0;
 
-    // Persist session to SQLite / Storage
+    // Persist session to local Storage
     storage.addSession({
       id: 'sess_test_' + Date.now(),
       userId: user.id,
@@ -135,6 +136,23 @@ export const TypingTest: React.FC<TypingTestProps> = ({
       averageLatencyMs: stats.averageLatencyMs,
       createdAt: new Date().toISOString(),
     });
+
+    // Persist to MongoDB History Collection
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      api.saveHistory(token, {
+        activityType: 'test',
+        title: `Timed Speed Test (${selectedDuration / 60} min)`,
+        titleUrdu: 'رفتار کا امتحان',
+        score: finalGross,
+        netScore: finalNet,
+        total: stats.totalKeypresses,
+        percentage: finalAcc,
+        errors: finalErrors,
+        durationSeconds: selectedDuration - remainingSeconds,
+        status: finalAcc >= 85 && finalGross >= 20 ? 'Passed' : finalAcc < 75 ? 'Failed' : 'Completed',
+      }).catch(err => console.error('Failed to save test to database', err));
+    }
 
     setTestResult({
       wpm: finalGross,

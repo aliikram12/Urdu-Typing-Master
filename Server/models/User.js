@@ -1,61 +1,73 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
   },
-  // Typing History / Settings saved from the Frontend
+  // Complete typing profile synced with frontend
   profileData: {
-    type: Object,
-    default: {
-      name: 'New User',
-      xp: 0,
-      level: 1,
-      totalKeysTyped: 0,
-      totalTimeMs: 0,
-      lessonsCompleted: [],
-      recentWpmHistory: [],
-      joinedAt: new Date().toISOString(),
-      lessonProgress: {},
-      sessions: [],
-      keyStats: {},
-      gameScores: [],
-      achievements: []
+    type: mongoose.Schema.Types.Mixed,
+    default: function() {
+      return {
+        id: this._id ? this._id.toString() : '',
+        name: this.username || '',
+        email: this.email || '',
+        avatar: '👨‍💻',
+        level: 'Beginner',
+        targetWpm: 40,
+        xp: 0,
+        totalKeysTyped: 0,
+        totalTimeMs: 0,
+        lessonsCompleted: [],
+        recentWpmHistory: [],
+        streakDays: 1,
+        lastPracticeDate: new Date().toISOString().split('T')[0],
+        practiceDates: [new Date().toISOString().split('T')[0]],
+        createdAt: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+        joinedAt: new Date().toISOString(),
+        lessonProgress: {},
+        sessions: [],
+        keyStats: {},
+        gameScores: [],
+        achievements: []
+      };
     }
   },
+  // User app settings
   settingsData: {
-    type: Object,
+    type: mongoose.Schema.Types.Mixed,
     default: {
+      theme: 'navy',
       soundTheme: 'mechanical',
-      soundVolume: 0.5,
-      keyboardLayout: 'crulp',
-      theme: 'dark',
       fontFamily: 'Noto Nastaliq Urdu',
-      showKeyboard: true,
-      showHands: true
+      fontSize: 'medium',
+      showVirtualKeyboard: true,
+      showHandGuide: true,
+      showEnglishLabels: true,
+      showUrduLabels: true,
+      soundEnabled: true,
+      soundVolume: 0.7,
+      errorSound: true,
+      gameSound: true,
+      strictMode: false,
+      autoAdvance: true,
+      uiLanguage: 'en'
     }
   }
 }, { timestamps: true });
-
-// Hash password before saving
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
 
 module.exports = mongoose.model('User', UserSchema);

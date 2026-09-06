@@ -1,4 +1,4 @@
-import { UserProfile, AppSettings } from '../types';
+import { UserProfile, AppSettings, HistoryRecord, HistoryStats } from '../types';
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -27,6 +27,14 @@ export const api = {
       const errorData = await res.json().catch(() => ({}));
       throw new Error(errorData.msg || 'Login failed');
     }
+    return res.json();
+  },
+
+  getMe: async (token: string) => {
+    const res = await fetch(`${API_URL}/auth/me`, {
+      headers: { 'x-auth-token': token },
+    });
+    if (!res.ok) throw new Error('Session invalid or expired');
     return res.json();
   },
 
@@ -62,6 +70,39 @@ export const api = {
       body: JSON.stringify(settingsData),
     });
     if (!res.ok) throw new Error('Failed to update settings');
+    return res.json();
+  },
+
+  // Dedicated Relational History APIs
+  saveHistory: async (token: string, historyData: Partial<HistoryRecord>): Promise<HistoryRecord> => {
+    const res = await fetch(`${API_URL}/history`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
+      body: JSON.stringify(historyData),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.msg || 'Failed to save test result');
+    }
+    return res.json();
+  },
+
+  getHistory: async (token: string): Promise<HistoryRecord[]> => {
+    const res = await fetch(`${API_URL}/history`, {
+      headers: { 'x-auth-token': token },
+    });
+    if (!res.ok) throw new Error('Failed to retrieve history');
+    return res.json();
+  },
+
+  getHistoryStats: async (token: string): Promise<HistoryStats> => {
+    const res = await fetch(`${API_URL}/history/stats`, {
+      headers: { 'x-auth-token': token },
+    });
+    if (!res.ok) throw new Error('Failed to retrieve history stats');
     return res.json();
   },
 };

@@ -13,7 +13,11 @@ import {
   Settings,
   Volume2,
   VolumeX,
-  Flame
+  Flame,
+  LogOut,
+  Mail,
+  Award,
+  ShieldCheck
 } from 'lucide-react';
 
 export type NavigationTab =
@@ -33,6 +37,7 @@ interface NavbarProps {
   onOpenSettings: () => void;
   onOpenReference: () => void;
   onToggleSound: () => void;
+  onLogout?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -43,6 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSettings,
   onOpenReference,
   onToggleSound,
+  onLogout,
 }) => {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -55,21 +61,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   ] as const;
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 select-none">
+    <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 select-none shadow-xl">
+      {/* Primary Top Bar */}
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo */}
         <div
           onClick={() => onSelectTab('dashboard')}
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group shrink-0"
         >
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-600/30 group-hover:scale-105 transition">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-105 group-hover:shadow-blue-500/50 transition duration-300">
             <span className="font-urdu font-black text-2xl leading-none -translate-y-0.5">
               ٹ
             </span>
           </div>
           <div>
             <div className="flex items-center gap-1.5 font-black text-white text-base tracking-tight">
-              <span>UrduTyper</span>
+              <span className="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">UrduTyper</span>
               <span className="font-urdu text-amber-400 font-bold text-lg leading-none">
                 اردو
               </span>
@@ -81,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Primary Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
+        <nav className="hidden lg:flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800/90 shadow-inner">
           {navItems.map(item => {
             const Icon = item.icon;
             const isActive = currentTab === item.id;
@@ -89,10 +96,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => onSelectTab(item.id as NavigationTab)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -102,22 +109,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
 
-        {/* Right Side Utilities */}
+        {/* Right Side Quick Utility Actions */}
         <div className="flex items-center gap-2">
-          {/* Daily Streak Pill */}
-          <div
-            title={`${user.streakDays || 1} Day Streak`}
-            className="hidden sm:flex items-center gap-1.5 bg-slate-900 border border-slate-800/90 px-3 py-1.5 rounded-xl text-xs font-bold text-amber-400"
-          >
-            <Flame className="w-4 h-4 fill-amber-400 animate-pulse" />
-            <span>{user.streakDays || 1}d</span>
-          </div>
-
           {/* Sound Toggle */}
           <button
             onClick={onToggleSound}
             title={settings.soundTheme === 'mute' ? 'Unmute Audio' : 'Mute Audio'}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer shadow-sm"
           >
             {settings.soundTheme === 'mute' ? (
               <VolumeX className="w-4 h-4 text-rose-400" />
@@ -130,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenReference}
             title="Urdu Keyboard Layout Cheat Sheet"
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer flex items-center gap-1.5 text-xs font-semibold shadow-sm"
           >
             <Keyboard className="w-4 h-4 text-blue-400" />
             <span className="hidden md:inline">Keymap</span>
@@ -140,15 +138,70 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenSettings}
             title="Settings & Preferences"
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+            className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition cursor-pointer shadow-sm"
           >
             <Settings className="w-4 h-4" />
           </button>
         </div>
       </div>
 
+      {/* Sub-Navbar: Centered Profile & Logout Strip */}
+      {user.name && (
+        <div className="border-t border-slate-800/70 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 py-2.5 px-4 shadow-md">
+          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-xs">
+            {/* User Profile Info Card */}
+            <div className="flex items-center gap-2.5 bg-slate-950/80 border border-slate-800 px-3 py-1.5 rounded-2xl shadow-inner">
+              <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-sm shadow-md shadow-blue-500/20 border border-blue-400/30 shrink-0">
+                {user.avatar || '👨‍💻'}
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-white tracking-wide">
+                  {user.name}
+                </span>
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Active
+                </span>
+              </div>
+            </div>
+
+            {/* Email pill (if present) */}
+            {user.email && (
+              <div className="hidden md:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-2xl text-slate-400 font-mono text-[11px]">
+                <Mail className="w-3.5 h-3.5 text-blue-400" />
+                <span className="truncate max-w-[200px]">{user.email}</span>
+              </div>
+            )}
+
+            {/* Level Pill */}
+            <div className="hidden sm:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800/80 px-3 py-1.5 rounded-2xl text-purple-300 text-[11px] font-semibold">
+              <Award className="w-3.5 h-3.5 text-purple-400" />
+              <span>{user.level || 'Beginner'}</span>
+            </div>
+
+            {/* Daily Streak Counter */}
+            <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-2xl text-amber-400 font-bold text-[11px]">
+              <Flame className="w-3.5 h-3.5 fill-amber-400 animate-pulse" />
+              <span>{user.streakDays || 0}d Streak</span>
+            </div>
+
+            {/* Centered Sleek Logout Button */}
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                title="Logout from your account"
+                className="group flex items-center gap-2 px-4 py-1.5 rounded-2xl bg-gradient-to-r from-rose-600/20 to-red-600/10 hover:from-rose-600 hover:to-red-600 text-rose-300 hover:text-white border border-rose-500/30 hover:border-rose-500 font-bold text-xs shadow-md hover:shadow-rose-600/30 transition-all duration-200 cursor-pointer active:scale-95"
+              >
+                <LogOut className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+                <span>Logout</span>
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Mobile Sub-Navigation Bar */}
-      <div className="lg:hidden flex items-center overflow-x-auto px-4 py-2 border-t border-slate-900 gap-1 scrollbar-none">
+      <div className="lg:hidden flex items-center overflow-x-auto px-4 py-2 border-t border-slate-900 gap-1 scrollbar-none bg-slate-950/90">
         {navItems.map(item => {
           const Icon = item.icon;
           const isActive = currentTab === item.id;
@@ -156,9 +209,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               key={item.id}
               onClick={() => onSelectTab(item.id as NavigationTab)}
-              className={`flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap transition shrink-0 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition shrink-0 ${
                 isActive
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                   : 'text-slate-400 hover:text-white'
               }`}
             >

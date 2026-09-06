@@ -23,27 +23,29 @@ const auth = (req, res, next) => {
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).json({ msg: 'User not found' });
     res.json({ profileData: user.profileData, settingsData: user.settingsData });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    console.error('Get progress error:', err.message);
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 
-// Update Progress (Profile)
+// Update Progress (Profile) - real-time sync from frontend
 router.post('/profile', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ msg: 'User not found' });
 
-    // Update profile data fields
+    // Deep merge profile data
     user.profileData = { ...user.profileData, ...req.body };
+    user.markModified('profileData');
     await user.save();
 
     res.json(user.profileData);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    console.error('Update profile error:', err.message);
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 
@@ -54,12 +56,13 @@ router.post('/settings', auth, async (req, res) => {
     if (!user) return res.status(404).json({ msg: 'User not found' });
 
     user.settingsData = { ...user.settingsData, ...req.body };
+    user.markModified('settingsData');
     await user.save();
 
     res.json(user.settingsData);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    console.error('Update settings error:', err.message);
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 

@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { UserProfile, AppSettings, Lesson } from './types';
-import { storage } from './core/storage';
+import { storage, createEmptyUser } from './core/storage';
 import { audioEngine } from './core/audioEngine';
 import { Navbar, NavigationTab } from './components/layout/Navbar';
 import { Dashboard } from './components/dashboard/Dashboard';
@@ -41,16 +41,20 @@ export default function App() {
 
   useEffect(() => {
     if (token) {
-      // Fetch user data from backend
-      api.getUserData(token).then((data: any) => {
-        setIsAuthenticated(true);
-        if (data.profileData) setCurrentUser(data.profileData);
-        if (data.settingsData) setSettings(data.settingsData);
+      // Authenticate token with backend and pull genuine user data
+      storage.pullFromCloud().then(loadedUser => {
+        if (loadedUser && loadedUser.id) {
+          setIsAuthenticated(true);
+          setCurrentUser(loadedUser);
+          setSettings(storage.getSettings());
+        } else {
+          handleLogout();
+        }
       }).catch(() => {
-        localStorage.removeItem('auth_token');
-        setToken(null);
-        setIsAuthenticated(false);
+        handleLogout();
       });
+    } else {
+      setIsAuthenticated(false);
     }
   }, [token]);
 
@@ -117,17 +121,22 @@ export default function App() {
 
   const handleAuthSuccess = (newToken: string, user: any) => {
     localStorage.setItem('auth_token', newToken);
+    if (user && user.profileData) {
+      storage.setCurrentUser(user.profileData);
+      setCurrentUser(user.profileData);
+    }
     setToken(newToken);
     setIsAuthenticated(true);
-    if (user.profileData) setCurrentUser(user.profileData);
-    if (user.settingsData) setSettings(user.settingsData);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('auth_token');
+    storage.clearSession();
     setToken(null);
     setIsAuthenticated(false);
-    storage.resetAllData();
+    setCurrentUser(createEmptyUser());
+    setActiveLesson(null);
+    setCurrentTab('dashboard');
+    setAuthMode('login');
   };
 
   if (!isAuthenticated) {
@@ -178,11 +187,8 @@ export default function App() {
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenReference={() => setIsReferenceOpen(true)}
         onToggleSound={handleToggleSound}
+        onLogout={handleLogout}
       />
-
-      <div className="flex justify-end px-4 py-2 bg-slate-900 border-b border-slate-800">
-         <button onClick={handleLogout} className="text-sm text-slate-400 hover:text-white transition">Logout</button>
-      </div>
 
       {/* Main View Router */}
       <main className="flex-1 pb-12">

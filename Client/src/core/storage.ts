@@ -160,6 +160,20 @@ export const INITIAL_ACHIEVEMENTS: Achievement[] = [
   },
 ];
 
+export const createEmptyUser = (id = '', name = '', email = ''): UserProfile => ({
+  id: id || '',
+  name: name || '',
+  email: email || '',
+  avatar: '👨‍💻',
+  level: 'Beginner',
+  targetWpm: 40,
+  createdAt: new Date().toISOString(),
+  lastLogin: new Date().toISOString(),
+  streakDays: 0,
+  lastPracticeDate: '',
+  practiceDates: [],
+});
+
 class StorageManager {
   // Profiles
   public getUsers(): UserProfile[] {
@@ -169,22 +183,7 @@ class StorageManager {
     } catch {
       // fallback
     }
-    // Default initial user
-    const defaultUser: UserProfile = {
-      id: 'usr_default',
-      name: 'Ali Ikram',
-      avatar: '👨‍💻',
-      level: 'Beginner',
-      targetWpm: 45,
-      createdAt: new Date().toISOString(),
-      lastLogin: new Date().toISOString(),
-      streakDays: 1,
-      lastPracticeDate: new Date().toISOString().split('T')[0],
-      practiceDates: [new Date().toISOString().split('T')[0]],
-    };
-    this.saveUsers([defaultUser]);
-    this.setCurrentUserId(defaultUser.id);
-    return [defaultUser];
+    return [];
   }
 
   public saveUsers(users: UserProfile[]) {
@@ -192,19 +191,29 @@ class StorageManager {
   }
 
   public getCurrentUser(): UserProfile {
-    const users = this.getUsers();
     const currentId = localStorage.getItem(STORAGE_KEYS.CURRENT_USER_ID);
+    if (!currentId) return createEmptyUser();
+    const users = this.getUsers();
     const found = users.find(u => u.id === currentId);
     if (found) return found;
-    if (users.length > 0) {
-      this.setCurrentUserId(users[0].id);
-      return users[0];
-    }
-    return this.getUsers()[0];
+    return createEmptyUser(currentId);
   }
 
   public setCurrentUserId(id: string) {
     localStorage.setItem(STORAGE_KEYS.CURRENT_USER_ID, id);
+  }
+
+  public setCurrentUser(user: UserProfile) {
+    if (!user || !user.id) return;
+    this.setCurrentUserId(user.id);
+    const users = this.getUsers().filter(u => u.id !== user.id);
+    users.push(user);
+    this.saveUsers(users);
+  }
+
+  public clearSession() {
+    localStorage.removeItem(STORAGE_KEYS.CURRENT_USER_ID);
+    localStorage.removeItem('auth_token');
   }
 
   public createUser(name: string, avatar: string, level: UserProfile['level']): UserProfile {
@@ -228,11 +237,12 @@ class StorageManager {
     return newUser;
   }
 
-  public updateUser(partial: Partial<UserProfile>): UserProfile {
+  public updateUser(partial: Partial<UserProfile>, sync = true): UserProfile {
     const current = this.getCurrentUser();
     const updated: UserProfile = { ...current, ...partial };
     const users = this.getUsers().map(u => (u.id === updated.id ? updated : u));
     this.saveUsers(users);
+    if (sync) this.syncToCloud();
     return updated;
   }
 
@@ -313,6 +323,7 @@ class StorageManager {
     localStorage.setItem(STORAGE_KEYS.LESSON_PROGRESS + userId, JSON.stringify(all));
     this.recordPracticeActivity(userId);
     this.checkLessonAchievements(all, wpm, accuracy);
+    this.syncToCloud();
   }
 
   // Sessions History
@@ -334,6 +345,7 @@ class StorageManager {
     localStorage.setItem(STORAGE_KEYS.SESSIONS + session.userId, JSON.stringify(list));
     this.recordPracticeActivity(session.userId);
     this.checkSpeedAndAccuracyAchievements(session.wpm, session.accuracy);
+    this.syncToCloud();
   }
 
   // Key Statistics
@@ -382,6 +394,8 @@ class StorageManager {
 
     stats[urduChar] = existing;
     localStorage.setItem(STORAGE_KEYS.KEY_STATS + userId, JSON.stringify(stats));
+    // debounce this slightly if called too often, but for now we sync
+    this.syncToCloud();
   }
 
   // Weak Key Detection
@@ -423,6 +437,7 @@ class StorageManager {
     if (score.gameName === 'urdu-bubbles' && score.wordsCompleted >= 30) {
       this.unlockAchievement('bubble_popper');
     }
+    this.syncToCloud();
   }
 
   // Achievements
@@ -463,6 +478,7 @@ class StorageManager {
 
     if (justUnlocked) {
       localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS + user.id, JSON.stringify(updated));
+      this.syncToCloud();
     }
     return justUnlocked;
   }
@@ -540,6 +556,94 @@ class StorageManager {
     return JSON.stringify(backup, null, 2);
   }
 
+  // Real-time Cloud Synchronization
+  public async syncToCloud() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return;
+
+    const user = this.getCurrentUser();
+    const fullProfile = {
+      ...user,
+      lessonProgress: this.getLessonProgress(user.id),
+      sessions: this.getSessions(user.id),
+      keyStats: this.getKeyStats(user.id),
+      gameScores: this.getGameScores(user.id),
+      achievements: this.getAchievements(user.id),
+    };
+
+    try {
+      await fetch('http://localhost:5000/api/progress/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': token,
+        },
+        body: JSON.stringify(fullProfile),
+      });
+    } catch (e) {
+      console.error('Failed to sync to cloud in real-time', e);
+    }
+  }
+
+  // Import Data from Backend (Run on Login or Session Verification)
+  public async pullFromCloud(): Promise<UserProfile | null> {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return null;
+    try {
+      // 1. Fetch current authenticated identity
+      const meRes = await fetch('http://localhost:5000/api/auth/me', {
+        headers: { 'x-auth-token': token },
+      });
+      if (!meRes.ok) {
+        this.clearSession();
+        return null;
+      }
+      const meData = await meRes.json();
+      const userId = meData.id || meData.profileData?.id;
+      const userName = meData.profileData?.name || meData.username;
+      const userEmail = meData.email;
+
+      // 2. Fetch progress & settings data
+      const res = await fetch('http://localhost:5000/api/progress', {
+        headers: { 'x-auth-token': token },
+      });
+
+      let profileData = meData.profileData || createEmptyUser(userId, userName, userEmail);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.profileData) {
+          profileData = { ...profileData, ...data.profileData };
+        }
+        if (data.settingsData) {
+          this.saveSettings(data.settingsData);
+        }
+      }
+
+      profileData.id = userId;
+      profileData.name = userName;
+      profileData.email = userEmail;
+
+      const { lessonProgress, sessions, keyStats, gameScores, achievements, ...userProps } = profileData;
+      const cleanUser: UserProfile = {
+        ...createEmptyUser(userId, userName, userEmail),
+        ...userProps,
+      };
+
+      this.setCurrentUser(cleanUser);
+
+      if (lessonProgress) localStorage.setItem(STORAGE_KEYS.LESSON_PROGRESS + userId, JSON.stringify(lessonProgress));
+      if (sessions) localStorage.setItem(STORAGE_KEYS.SESSIONS + userId, JSON.stringify(sessions));
+      if (keyStats) localStorage.setItem(STORAGE_KEYS.KEY_STATS + userId, JSON.stringify(keyStats));
+      if (gameScores) localStorage.setItem(STORAGE_KEYS.GAME_SCORES + userId, JSON.stringify(gameScores));
+      if (achievements) localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS + userId, JSON.stringify(achievements));
+
+      return cleanUser;
+    } catch(e) {
+      console.error('Failed to pull from cloud', e);
+      return null;
+    }
+  }
+
   public importDataJSON(jsonStr: string): boolean {
     try {
       const parsed = JSON.parse(jsonStr);
@@ -576,6 +680,7 @@ class StorageManager {
           JSON.stringify(parsed.achievements)
         );
       }
+      this.syncToCloud();
       return true;
     } catch {
       return false;
